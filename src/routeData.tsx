@@ -12,7 +12,7 @@ import HomeScreen from "./view/home";
 
 const routerData = createBrowserRouter([
   {
-    path: "/",
+    path: "/dashboard",
     element: <Layout />,
     children: [
       {
@@ -26,7 +26,8 @@ const routerData = createBrowserRouter([
     ],
   },
   {
-    path: "/login",
+    index: true,
+    path: "/",
     element: <LoginScreen />,
   },
   {

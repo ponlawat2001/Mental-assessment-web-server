@@ -14,7 +14,10 @@ function Layout() {
             <Link to="/nopage">Nopage</Link>
           </li>
           <li>
-            <Link to="/about">About</Link>
+            <Link to="about">About</Link>
+          </li>
+          <li>
+            <Link to="/login">Nopage</Link>
           </li>
         </ul>
       </nav>
