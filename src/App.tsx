@@ -1,9 +1,14 @@
 import "./App.css";
+import PrivateRoute from "./privateRoute/privateRoute";
+import routeData from "./routeData";
+import { RouterProvider } from "react-router-dom";
 
 function App() {
   return (
     <>
-      <h1>Hello World</h1>
+      <PrivateRoute>
+        <RouterProvider router={routeData} />
+      </PrivateRoute>
     </>
   );
 }
