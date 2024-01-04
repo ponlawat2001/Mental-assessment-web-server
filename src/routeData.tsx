@@ -9,11 +9,16 @@ import NopageScreen from "./view/404";
 import LoginScreen from "./view/login";
 import AboutScreen from "./view/about";
 import HomeScreen from "./view/home";
+import PrivateRoute from "./privateRoute/privateRoute";
 
 const routerData = createBrowserRouter([
   {
-    path: "/dashboard",
-    element: <Layout />,
+    path: "/",
+    element: (
+      <PrivateRoute>
+        <Layout />
+      </PrivateRoute>
+    ),
     children: [
       {
         index: true,
@@ -27,7 +32,7 @@ const routerData = createBrowserRouter([
   },
   {
     index: true,
-    path: "/",
+    path: "/login",
     element: <LoginScreen />,
   },
   {
