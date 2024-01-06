@@ -1,3 +1,71 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --main30: #edf1d6;
+  --main20: #9dc08b;
+  --main10: #609966;
+  --main5: #40513b;
+  --lightgray2: #939393;
+  --validation: #ff6464;
+  --darkgray: #636363;
+}
+
+body {
+  font-family: Prompt;
+  background-color: var(--main30);
+}
+
+a {
+  color: var(--darkgray);
+}
+
+p {
+  color: var(--main5);
+}
+
+input {
+  color: var(--lightgray2);
+}
+
+span {
+  color: var(--validation);
+}
+
+button {
+  color: white;
+  border-radius: 8px;
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  background-color: var(--main10);
+}
+
+@font-face {
+  font-family: "Prompt";
+  src: url("./assets/fonts/Prompt/Prompt-Bold.ttf");
+  font-weight: 500;
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Prompt";
+  font-weight: 400;
+  src: url("./assets/fonts/Prompt/Prompt-Regular.ttf");
+  font-weight: regular;
+}
+
+@font-face {
+  font-family: "Prompt";
+  src: url("./assets/fonts/Prompt/Prompt-Light.ttf");
+  font-weight: light;
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: "Prompt";
+  src: url("./assets/fonts/Prompt/Prompt-Medium.ttf");
+  font-weight: medium;
+  font-weight: 300;
+}

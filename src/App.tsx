@@ -6,9 +6,7 @@ import { RouterProvider } from "react-router-dom";
 function App() {
   return (
     <>
-      <PrivateRoute>
-        <RouterProvider router={routeData} />
-      </PrivateRoute>
+      <RouterProvider router={routeData} />
     </>
   );
 }
