@@ -1,9 +1,20 @@
 import axios, { AxiosResponse } from "axios";
-import { login } from "../serverinfo/serverinfo";
+import { login, reset } from "../serverinfo/serverinfo";
 
 export default class authServices {
-  static Login(email: string, password: string, props: any) {
-    axios
+  static async Resetpassword(email: string) {
+    try {
+      const res = await axios.post(reset, {
+        email: email,
+      });
+      console.log(res.data);
+      return res.data;
+    } catch (e) {
+      return e;
+    }
+  }
+  static async Login(email: string, password: string, props: any) {
+    return axios
       .post(login, {
         email: email,
         password: password,

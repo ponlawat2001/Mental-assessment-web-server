@@ -1,15 +1,12 @@
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
-  Routes,
-} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import Layout from "./view/layout";
 import NopageScreen from "./view/404";
 import LoginScreen from "./view/login";
 import AboutScreen from "./view/about";
 import HomeScreen from "./view/home";
 import PrivateRoute from "./privateRoute/privateRoute";
+import Forgetpassword from "./view/forget/forgetpassword";
+import ForgetpasswordSuccess from "./view/forget/forgetsucess";
 
 const routerData = createBrowserRouter([
   {
@@ -34,6 +31,15 @@ const routerData = createBrowserRouter([
     index: true,
     path: "/login",
     element: <LoginScreen />,
+  },
+
+  {
+    path: "/forget",
+    element: <Forgetpassword />,
+  },
+  {
+    path: "/forgetsuccess",
+    element: <ForgetpasswordSuccess />,
   },
   {
     path: "/nopage",

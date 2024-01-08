@@ -1,5 +1,4 @@
 import "./App.css";
-import PrivateRoute from "./privateRoute/privateRoute";
 import routeData from "./routeData";
 import { RouterProvider } from "react-router-dom";
 
