@@ -43,15 +43,15 @@ function Sidebar() {
   }
   return (
     <nav>
-      <div className="Sidebar flex flex-col min-h-screen p-4 gap-8 items-center">
+      <div className="bg-main10 flex flex-col min-h-screen p-4 gap-8 items-center w-20">
         <img src={Logo} width={48} height={48} />
-        <div className=" w-full rounded bg-white" style={{ height: 2 }}></div>
+        <div className=" w-full rounded bg-white " style={{ height: 2 }}></div>
         {ListofIcon.map((e) => (
           <Link
             className={
               e.path == path
-                ? "Navicon flex p-2 rounded w-10 h-10 justify-center items-center"
-                : "flex p-2 rounded w-10 h-10 justify-center items-center link"
+                ? "flex p-2 rounded w-10 h-10 justify-center items-center bg-main5"
+                : "flex p-2 rounded w-10 h-10 justify-center items-center hover:bg-main20"
             }
             onClick={() => {
               pathonChange(e.path);
