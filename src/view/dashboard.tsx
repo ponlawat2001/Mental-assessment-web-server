@@ -1,4 +1,4 @@
-function HomeScreen() {
+function Dashboard() {
   return (
     <>
       <h1>Hellodsd</h1>
@@ -6,4 +6,4 @@ function HomeScreen() {
   );
 }
 
-export default HomeScreen;
+export default Dashboard;

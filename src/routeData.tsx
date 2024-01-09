@@ -1,15 +1,16 @@
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
-  Routes,
-} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import Layout from "./view/layout";
 import NopageScreen from "./view/404";
-import LoginScreen from "./view/login";
-import AboutScreen from "./view/about";
-import HomeScreen from "./view/home";
+import LoginScreen from "./view/login&forget/login";
 import PrivateRoute from "./privateRoute/privateRoute";
+import Forgetpassword from "./view/login&forget/forgetpassword";
+import ForgetpasswordSuccess from "./view/login&forget/forgetsucess";
+import Dashboard from "./view/dashboard";
+import Assessment from "./view/assessment/assessment";
+import Contact from "./view/contact/contact";
+import News from "./view/news/news";
+import Profile from "./view/profile/profile";
+import Users from "./view/users/users";
 
 const routerData = createBrowserRouter([
   {
@@ -22,11 +23,27 @@ const routerData = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <HomeScreen />,
+        element: <Dashboard />,
       },
       {
-        path: "about",
-        element: <AboutScreen />,
+        path: "assessment",
+        element: <Assessment />,
+      },
+      {
+        path: "contact",
+        element: <Contact />,
+      },
+      {
+        path: "news",
+        element: <News />,
+      },
+      {
+        path: "profile",
+        element: <Profile />,
+      },
+      {
+        path: "users",
+        element: <Users />,
       },
     ],
   },
@@ -35,8 +52,17 @@ const routerData = createBrowserRouter([
     path: "/login",
     element: <LoginScreen />,
   },
+
   {
-    path: "/nopage",
+    path: "/forget",
+    element: <Forgetpassword />,
+  },
+  {
+    path: "/forgetsuccess",
+    element: <ForgetpasswordSuccess />,
+  },
+  {
+    path: "*",
     element: <NopageScreen />,
   },
 ]);
