@@ -1,8 +1,8 @@
 import { useForm, SubmitHandler, SubmitErrorHandler } from "react-hook-form";
-import authServices from "../services/auth";
-import Logo from "../assets/icons/Logo.png";
-import Eyeopen from "../assets/icons/eye-open.png";
-import Eyeclose from "../assets/icons/eye-close.png";
+import authServices from "../../services/auth";
+import Logo from "/src/assets/icons/Logo.png";
+import Eyeopen from "/src/assets/icons/eye-open.png";
+import Eyeclose from "/src/assets/icons/eye-close.png";
 import { useState } from "react";
 
 type FormData = {
@@ -78,9 +78,12 @@ function LoginScreen(props: any) {
 
   return (
     <center>
-      <form onSubmit={handleSubmit(onSubmit, onError)}>
-        <div className="flex flex-col gap-4 items-center p-12 my-12 bg-white w-96 rounded-2xl">
-          <img src={Logo} width={60} className="" />
+      <form
+        className="min-h-screen justify-center flex items-center"
+        onSubmit={handleSubmit(onSubmit, onError)}
+      >
+        <div className="p-12 my-12 flex flex-col gap-4 items-center bg-white w-96 rounded-2xl">
+          <img src={Logo} width={60} />
           <p className=" text-2xl">Mental Assessment</p>
           <p className=" font-extralight text-sm">
             Please enter your details to sign in.
@@ -150,9 +153,7 @@ function LoginScreen(props: any) {
             <span className="font-extralight text-sm">
               {errors.email?.message ?? errors.password?.message}
             </span>
-          ) : (
-            ""
-          )}
+          ) : null}
           {loadingstate ? (
             <button disabled={true} className=" bg-gray-400">
               Loading

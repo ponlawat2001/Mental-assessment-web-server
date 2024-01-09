@@ -13,7 +13,11 @@ function Forgetpassword() {
   const [errorsText, seterrorText] = useState("");
   const [isSuccess, setSuccess] = useState(false);
 
-  const { register, handleSubmit } = useForm<FormData>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>();
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     setloadingstate(true);
@@ -26,11 +30,18 @@ function Forgetpassword() {
     }
     setloadingstate(false);
   };
+
+  const removeErrorText = () => {
+    seterrorText("");
+  };
   return (
     <center>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className="min-h-screen justify-center flex items-center"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         {isSuccess ? <Navigate to="/forgetsuccess" /> : <></>}
-        <div className="flex flex-col gap-4 items-center p-12 my-12 bg-white w-96 rounded-2xl">
+        <div className="w-96 p-12 my-12 gap-4 items-center flex flex-col bg-white rounded-2xl">
           <img src={Logo} width={60} className="" />
           <p className=" text-2xl text-left ">Forget password</p>
           <p className=" font-extralight text-sm text-left opacity-80 ">
@@ -42,14 +53,26 @@ function Forgetpassword() {
             type="email"
             id="email"
             placeholder="Enter your email"
+            onClick={removeErrorText}
             className="font-thin w-full border-2 bg-transparent py-2 pl-4 text-gray-900  focus:ring-0 text-sm rounded-lg"
-            {...register("email")}
+            {...register("email", {
+              required: "Email is required",
+              minLength: {
+                value: 3,
+                message: "Email must be at least 3 characters long",
+              },
+            })}
           />
           {errorsText != "" ? (
             <span className="font-extralight text-sm">{errorsText}</span>
           ) : (
             ""
           )}
+          {errors.email?.message != null ? (
+            <span className="font-extralight text-sm">
+              {errors.email?.message}
+            </span>
+          ) : null}
           {loadingstate ? (
             <button disabled={true} className=" bg-gray-400">
               Loading
