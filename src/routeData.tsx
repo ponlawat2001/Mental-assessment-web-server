@@ -2,11 +2,15 @@ import { createBrowserRouter } from "react-router-dom";
 import Layout from "./view/layout";
 import NopageScreen from "./view/404";
 import LoginScreen from "./view/login&forget/login";
-import AboutScreen from "./view/about";
-import HomeScreen from "./view/home";
 import PrivateRoute from "./privateRoute/privateRoute";
 import Forgetpassword from "./view/login&forget/forgetpassword";
 import ForgetpasswordSuccess from "./view/login&forget/forgetsucess";
+import Dashboard from "./view/dashboard";
+import Assessment from "./view/assessment/assessment";
+import Contact from "./view/contact/contact";
+import News from "./view/news/news";
+import Profile from "./view/profile/profile";
+import Users from "./view/users/users";
 
 const routerData = createBrowserRouter([
   {
@@ -19,11 +23,27 @@ const routerData = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <HomeScreen />,
+        element: <Dashboard />,
       },
       {
-        path: "about",
-        element: <AboutScreen />,
+        path: "assessment",
+        element: <Assessment />,
+      },
+      {
+        path: "contact",
+        element: <Contact />,
+      },
+      {
+        path: "news",
+        element: <News />,
+      },
+      {
+        path: "profile",
+        element: <Profile />,
+      },
+      {
+        path: "users",
+        element: <Users />,
       },
     ],
   },
