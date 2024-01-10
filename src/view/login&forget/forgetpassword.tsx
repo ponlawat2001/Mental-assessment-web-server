@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Logo from "/src/assets/icons/Logo.png";
-import authServices from "../../services/auth";
+import authServices from "../../services/auth.service";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Navigate } from "react-router-dom";
 

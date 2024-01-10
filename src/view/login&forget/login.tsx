@@ -1,5 +1,5 @@
 import { useForm, SubmitHandler, SubmitErrorHandler } from "react-hook-form";
-import authServices from "../../services/auth";
+import authServices from "../../services/auth.service";
 import Logo from "/src/assets/icons/Logo.png";
 import Eyeopen from "/src/assets/icons/eye-open.png";
 import Eyeclose from "/src/assets/icons/eye-close.png";
@@ -94,7 +94,7 @@ function LoginScreen(props: any) {
             defaultValue={getemail}
             onFocus={removeErrorText}
             placeholder="Enter your email"
-            className="font-thin w-full border-2 bg-transparent py-2 pl-4 text-gray-900  focus:ring-0 text-sm rounded-lg"
+            className=" text-main5 font-thin w-full border-2 bg-transparent py-2 pl-4 text-gray-900  focus:ring-0 text-sm rounded-lg"
             {...register("email", {
               required: "Email is required",
               minLength: {
@@ -111,7 +111,7 @@ function LoginScreen(props: any) {
               defaultValue={getpassword}
               onFocus={removeErrorText}
               placeholder="Enter your password"
-              className=" font-thin w-full border-2 bg-transparent py-2 pl-4 text-gray-900  focus:ring-0 text-sm rounded-lg"
+              className=" text-main5 font-thin w-full border-2 bg-transparent py-2 pl-4 text-gray-900  focus:ring-0 text-sm rounded-lg"
               {...register("password", {
                 required: "Password is required",
                 minLength: {
