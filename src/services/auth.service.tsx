@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { login, reset } from "../serverinfo/serverinfo";
 
-export default class authServices {
+export default class AuthServices {
   static async Resetpassword(email: string) {
     try {
       const res = await axios.post(reset, {
@@ -29,4 +29,6 @@ export default class authServices {
         return e;
       });
   }
+
+  static async fetchnewtoken() {}
 }

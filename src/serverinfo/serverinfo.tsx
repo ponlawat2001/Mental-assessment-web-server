@@ -4,3 +4,6 @@ const baseUrl = "https://mental-assessment.cyclic.app";
 const auth = baseUrl + "/auth";
 export const login = auth + "/email/login";
 export const reset = auth + "/email/reset";
+
+const news = baseUrl + "/news";
+export const newsfindAll = news + "/findAll";
