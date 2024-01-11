@@ -94,7 +94,7 @@ function LoginScreen(props: any) {
             defaultValue={getemail}
             onFocus={removeErrorText}
             placeholder="Enter your email"
-            className=" text-main5 font-thin w-full border-2 bg-transparent py-2 pl-4 text-gray-900  focus:ring-0 text-sm rounded-lg"
+            className=" text-main5 font-thin w-full border-2 bg-transparent py-2 pl-4  focus:ring-0 text-sm rounded-lg"
             {...register("email", {
               required: "Email is required",
               minLength: {
@@ -111,7 +111,7 @@ function LoginScreen(props: any) {
               defaultValue={getpassword}
               onFocus={removeErrorText}
               placeholder="Enter your password"
-              className=" text-main5 font-thin w-full border-2 bg-transparent py-2 pl-4 text-gray-900  focus:ring-0 text-sm rounded-lg"
+              className=" text-main5 font-thin w-full border-2 bg-transparent py-2 pl-4  focus:ring-0 text-sm rounded-lg"
               {...register("password", {
                 required: "Password is required",
                 minLength: {

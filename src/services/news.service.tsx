@@ -9,6 +9,7 @@ export default class NewsService {
       return res.data["result"];
     } catch (e) {
       localStorage.removeItem("jwt");
+      window.location.reload();
       return e;
     }
   }
