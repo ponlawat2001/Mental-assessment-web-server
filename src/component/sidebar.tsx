@@ -45,6 +45,7 @@ function Sidebar() {
 
   function signout() {
     localStorage.removeItem("jwt");
+    window.location.reload();
   }
   return (
     <nav>
@@ -61,6 +62,7 @@ function Sidebar() {
 
           {ListofIcon.map((e) => (
             <Link
+              key={e.path}
               className={
                 e.path == path
                   ? "flex p-2 rounded w-10 h-10 justify-center items-center bg-main5"
@@ -71,7 +73,7 @@ function Sidebar() {
               }}
               to={e.path}
             >
-              <img src={e.icon} />
+              <img alt={`Icon for ${e.path}`} src={e.icon} />
             </Link>
           ))}
         </div>

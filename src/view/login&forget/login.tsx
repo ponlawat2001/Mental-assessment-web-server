@@ -41,7 +41,7 @@ function LoginScreen(props: any) {
     localStorage.getItem("rememberstate") == "true" ? true : false;
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
-    if (!isRemember) {
+    if (isRemember) {
       localStorage.setItem("rememberemail", data.email);
       localStorage.setItem("rememberpassword", data.password);
       localStorage.setItem("rememberstate", isRemember ? "true" : "fasle");
