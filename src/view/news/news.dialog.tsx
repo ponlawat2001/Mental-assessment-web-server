@@ -3,13 +3,16 @@ import { Dialog, Transition } from "@headlessui/react";
 import TextareaAutosize from "react-textarea-autosize";
 import { useDropzone } from "react-dropzone";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import StorageService from "../../services/storage.service";
 import NewsService from "../../services/news.service";
+import Image from "../../assets/icons/image.png";
 
 let imageSelecte: File;
 
 export default function Editdialog(props?: any) {
+  const [isloading, setLoading] = useState(false);
+
   const onDrop = (acceptedFiles: File[]) => {
     imageSelecte = acceptedFiles[0];
     props.setUploadedImage(URL.createObjectURL(acceptedFiles[0]) as string);
@@ -22,16 +25,36 @@ export default function Editdialog(props?: any) {
   } = useForm<NewsResult>();
 
   const onSubmit: SubmitHandler<NewsResult> = async (data) => {
-    data.id = props.element?.id ?? "";
-    const newimageUrl: string[] = await StorageService.uploadImage(
-      imageSelecte
-    );
-    data.image_URL =
-      props.uploadedImage == null ? props.element?.image_URL : newimageUrl[0];
-    console.log(data);
-    NewsService.update(data);
-    props.onClose();
-    window.location.reload();
+    if (props.element != null) {
+      setLoading(true);
+      if (props.uploadedImage != null) {
+        const newimageUrl: string[] = await StorageService.uploadImage(
+          imageSelecte
+        );
+        data.image_URL = newimageUrl[0];
+      } else {
+        data.image_URL = props.element?.image_URL;
+      }
+      data.id = props.element?.id;
+      NewsService.update(data).then(() => {
+        setLoading(false);
+        props.onClose();
+        window.location.reload();
+      });
+    } else {
+      if (props.uploadedImage != null) {
+        setLoading(true);
+        const newimageUrl: string[] = await StorageService.uploadImage(
+          imageSelecte
+        );
+        data.image_URL = newimageUrl[0];
+        NewsService.create(data).then(() => {
+          setLoading(false);
+          props.onClose();
+          window.location.reload();
+        });
+      }
+    }
   };
 
   const onError: SubmitErrorHandler<NewsResult> = (errors) => {
@@ -74,7 +97,15 @@ export default function Editdialog(props?: any) {
                     className="rounded-2xl cursor-pointer"
                     {...getRootProps()}
                   >
-                    {
+                    {props.element == null && props.uploadedImage == null ? (
+                      <div className="flex flex-col border-2 gap-2 border-gray justify-center items-center rounded-2xl h-52">
+                        <img width={24} src={Image} />
+                        <p className=" font-thin text-sm">Upload image</p>
+                        <span className="text-sm font-thin ">
+                          image is required
+                        </span>
+                      </div>
+                    ) : (
                       <div className="flex flex-col">
                         <img
                           className="rounded-2xl max-h-52 object-cover object-center"
@@ -86,7 +117,7 @@ export default function Editdialog(props?: any) {
                           alt="Uploaded"
                         />
                       </div>
-                    }
+                    )}
                   </div>
                   <p>ชื่อข่าวสาร</p>
                   <input
@@ -99,6 +130,11 @@ export default function Editdialog(props?: any) {
                       required: "title is required",
                     })}
                   />
+                  {errors.title?.message != null ? (
+                    <span className="text-sm font-thin">
+                      {errors.title?.message}
+                    </span>
+                  ) : null}
                   <p>บทนำ</p>
                   <TextareaAutosize
                     id="intro"
@@ -106,9 +142,14 @@ export default function Editdialog(props?: any) {
                     placeholder="Enter intro"
                     className="text-main5 font-thin w-full border-2 bg-transparent py-2 px-4  focus:ring-0 text-sm rounded-lg"
                     {...register("intro", {
-                      required: "title is required",
+                      required: "intro is required",
                     })}
                   />
+                  {errors.intro?.message != null ? (
+                    <span className="text-sm font-thin">
+                      {errors.intro?.message}
+                    </span>
+                  ) : null}
                   <p>รายละเอียด</p>
                   <TextareaAutosize
                     id="content"
@@ -116,25 +157,39 @@ export default function Editdialog(props?: any) {
                     placeholder="Enter content"
                     className="text-main5 font-thin w-full border-2 bg-transparent py-2 px-4  focus:ring-0 text-sm rounded-lg"
                     {...register("news_content", {
-                      required: "title is required",
+                      required: "content is required",
                     })}
                   />
+                  {errors.news_content?.message != null ? (
+                    <span className="text-sm font-thin">
+                      {errors.news_content?.message}
+                    </span>
+                  ) : null}
 
-                  <div className="flex flex-row gap-4 mt-4">
+                  {isloading ? (
                     <button
-                      type="submit"
-                      className=" text-white bg-main10 hover:bg-main20 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2  focus-visible:ring-offset-2"
+                      disabled={true}
+                      className=" bg-gray-400 hover:bg-gray-400"
                     >
-                      บันทึก
+                      Loading
                     </button>
-                    <button
-                      type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium  bg-validation hover:bg-validation-hover shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-                      onClick={props.onClose}
-                    >
-                      ยกเลิก
-                    </button>
-                  </div>
+                  ) : (
+                    <div className="flex flex-row gap-4 mt-4">
+                      <button
+                        type="submit"
+                        className=" text-white bg-main10 hover:bg-main20 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2  focus-visible:ring-offset-2"
+                      >
+                        บันทึก
+                      </button>
+                      <button
+                        type="button"
+                        className="inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium  bg-validation hover:bg-validation-hover shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                        onClick={props.onClose}
+                      >
+                        ยกเลิก
+                      </button>
+                    </div>
+                  )}
                 </form>
               </Dialog.Panel>
             </Transition.Child>

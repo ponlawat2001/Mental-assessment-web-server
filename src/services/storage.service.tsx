@@ -8,7 +8,7 @@ export default class StorageService {
       "Content-Type": "multipart/form-data",
     };
     const formData = new FormData();
-    formData.append("image", imageFile, imageFile.name ?? "Untitle");
+    formData.append("image", imageFile, imageFile.name);
     try {
       const res = await axios.post(storageImageupload, formData, { headers });
       return res.data["result"];
