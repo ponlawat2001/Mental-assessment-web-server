@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import Logo from "../assets/icons/Logo.png";
 import assessment from "../assets/icons/svg/assessment.svg";
-import contact from "../assets/icons/svg/contact.svg";
 import news from "../assets/icons/svg/news.svg";
 import profile from "../assets/icons/svg/profile.svg";
 import users from "../assets/icons/svg/users.svg";
@@ -23,15 +22,11 @@ function Sidebar() {
     },
     {
       path: "/contact",
-      icon: contact,
+      icon: profile,
     },
     {
       path: "/news",
       icon: news,
-    },
-    {
-      path: "/profile",
-      icon: profile,
     },
     {
       path: "/users",
@@ -50,7 +45,7 @@ function Sidebar() {
   return (
     <nav>
       <div
-        className="bg-main10 flex flex-col min-h-screen p-4 -8 items-center w-20 justify-between
+        className="bg-main10 flex flex-col min-h-screen h-full p-4 -8 items-center w-20 justify-between
        "
       >
         <div className="flex flex-col gap-8">

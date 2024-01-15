@@ -10,6 +10,7 @@ export default function Confirmdialog(props?: any) {
     NewsService.delete(id).then((_) => {
       setLoading(false);
       props.onClose();
+      window.location.reload();
     });
   }
 

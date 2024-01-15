@@ -11,5 +11,9 @@ export const newsupdate = news + "/update";
 export const newscreate = news + "/create";
 export const newsdelete = news + "/delete";
 
+const contact = baseUrl + "/contact";
+export const contactfindAll = contact + "/findAll";
+export const contactupdate = contact + "/update";
+
 const storage = baseUrl + "/storage";
 export const storageImageupload = storage + "/uploadImage";
