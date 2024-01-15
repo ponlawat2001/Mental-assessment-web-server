@@ -7,3 +7,13 @@ export const reset = auth + "/email/reset";
 
 const news = baseUrl + "/news";
 export const newsfindAll = news + "/findAll";
+export const newsupdate = news + "/update";
+export const newscreate = news + "/create";
+export const newsdelete = news + "/delete";
+
+const contact = baseUrl + "/contact";
+export const contactfindAll = contact + "/findAll";
+export const contactupdate = contact + "/update";
+
+const storage = baseUrl + "/storage";
+export const storageImageupload = storage + "/uploadImage";

@@ -15,7 +15,10 @@ export default {
         'lightgray2': '#939393',
         'validation': '#ff6464',
         'validation-hover': '#ff6464c2',
-        'darkgray': '#636363'
+        'darkgray': '#636363',
+        'edit': '#FFC786',
+        'edit-hover': '#FFC786c2'
+
       },
     },
   },
