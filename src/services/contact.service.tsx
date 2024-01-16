@@ -1,6 +1,6 @@
 import axios from "axios";
-import { contactfindAll, contactupdate } from "../serverinfo/serverinfo";
-import { ContactResult } from "../interfaces/contact.interface";
+import { contactfindAll, contactupdate } from "@serverinfo/serverinfo";
+import { ContactResult } from "@interfaces/contact.interface";
 
 export default class ContactServices {
   static async fecth() {

@@ -1,12 +1,12 @@
-import { NewsResult } from "../../interfaces/news.interface";
+import { NewsResult } from "@interfaces/news.interface";
 import { Dialog, Transition } from "@headlessui/react";
 import TextareaAutosize from "react-textarea-autosize";
 import { useDropzone } from "react-dropzone";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import { Fragment, useState } from "react";
-import StorageService from "../../services/storage.service";
-import NewsService from "../../services/news.service";
-import Image from "../../assets/icons/image.png";
+import StorageService from "@services/storage.service";
+import NewsService from "@services/news.service";
+import Image from "@assets/icons/image.png";
 
 let imageSelecte: File;
 

@@ -1,8 +1,8 @@
 import { useForm, SubmitHandler, SubmitErrorHandler } from "react-hook-form";
-import authServices from "../../services/auth.service";
-import Logo from "/src/assets/icons/Logo.png";
-import Eyeopen from "/src/assets/icons/eye-open.png";
-import Eyeclose from "/src/assets/icons/eye-close.png";
+import authServices from "@services/auth.service";
+import Logo from "@assets/icons/Logo.png";
+import Eyeopen from "@assets/icons/eye-open.png";
+import Eyeclose from "@assets/icons/eye-close.png";
 import { useState } from "react";
 
 type FormData = {

@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useState } from "react";
-import LoginScreen from "../view/login&forget/login";
+import LoginScreen from "@views/login&forget/login";
 
 const PrivateRoute = ({ children }: { children: ReactNode }) => {
   const [jwt, setJwt] = useState(localStorage.getItem("jwt"));

@@ -1,14 +1,14 @@
 import moment from "moment";
 import { useEffect, useState } from "react";
-import { ContactResult } from "../../interfaces/contact.interface";
-import ContactServices from "../../services/contact.service";
-import facebook from "../../assets/icons/facebook.png";
-import line from "../../assets/icons/line.png";
-import gmail from "../../assets/icons/gmail.png";
-import phone from "../../assets/icons/phone.png";
-import { useDropzone } from "react-dropzone";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
-import StorageService from "../../services/storage.service";
+import { ContactResult } from "@interfaces/contact.interface";
+import ContactServices from "@services/contact.service";
+import facebook from "@assets/icons/facebook.png";
+import line from "@assets/icons/line.png";
+import gmail from "@assets/icons/gmail.png";
+import phone from "@assets/icons/phone.png";
+import { useDropzone } from "react-dropzone";
+import StorageService from "@services/storage.service";
 
 let imageSelecte: File;
 
