@@ -12,6 +12,7 @@ import News from "./view/news/news";
 import Profile from "./view/profile/profile";
 import Users from "./view/users/users";
 import HistoryScreen from "./view/users/history";
+import HistoryDetail from "./view/users/history.detail";
 
 const routerData = createBrowserRouter([
   {
@@ -49,6 +50,7 @@ const routerData = createBrowserRouter([
           {
             path: "history",
             element: <HistoryScreen />,
+            children: [{ path: "historyDetail", element: <HistoryDetail /> }],
           },
         ],
       },

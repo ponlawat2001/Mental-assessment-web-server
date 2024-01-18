@@ -60,3 +60,16 @@ export const avatarRender = (avatar: string) => {
     }
   }
 };
+
+export const timesteampConverter = (timesteamp: number) => {
+  const datetime = new Date(timesteamp * 1000);
+
+  const options = {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  } as Intl.DateTimeFormatOptions;
+  const formattedDate = datetime.toLocaleDateString("en-US", options);
+
+  return formattedDate;
+};

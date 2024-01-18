@@ -1,11 +1,16 @@
+import { timesteampConverter } from "@app/helper/helper";
 import { HistoryResult } from "@app/interfaces/history.interface";
 import HistoryService from "@app/services/history.service";
 import { useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { Outlet, useNavigate, useOutletContext } from "react-router-dom";
 
 export default function HistoryScreen() {
   const [isuserSelected] = useOutletContext<string>();
   const [history, setHistory] = useState<HistoryResult[] | null>(null);
+  const [historySelected, setHistorySelected] = useState<HistoryResult | null>(
+    null
+  );
+  const navigate = useNavigate();
 
   useEffect(() => {
     HistoryService.fecth().then((res) => {
@@ -13,21 +18,50 @@ export default function HistoryScreen() {
     });
   }, []);
 
+  function clickhitorySelected(historyClick: HistoryResult) {
+    if (historyClick.id == historySelected?.id) {
+      setHistorySelected(null);
+    } else {
+      setHistorySelected(historyClick);
+      navigate("historyDetail");
+    }
+  }
+
   return (
     <>
-      <div className="flex flex-col gap-4">
-        <p className=" font-bold p-2 text-center ">
-          ประวัติการทำแบบประเมินของผู้ใช้
-        </p>
-        {history
-          ?.filter((value) => value.owner == isuserSelected)
-          .map((element) => (
-            <div className=" bg-main30 p-4 rounded-2xl" key={element.id}>
-              {element.summary.map((Esummary) => (
-                <p>{Esummary.name}</p>
-              ))}
-            </div>
-          ))}
+      <div className="flex flex-row gap-4">
+        <div className="flex flex-col gap-4 rounded-2xl p-4 bg-white">
+          <p className=" font-bold p-2 text-center ">
+            ประวัติการทำแบบประเมินของผู้ใช้
+          </p>
+          {history
+            ?.filter((value) => value.owner == isuserSelected)
+            .map((element) => (
+              <>
+                <div
+                  key={element.id}
+                  className={
+                    (element?.id == historySelected?.id
+                      ? " border-4 border-main10 "
+                      : "") + " cursor-pointer bg-main30 p-4 rounded-2xl "
+                  }
+                  onClick={() => clickhitorySelected(element)}
+                >
+                  <p>
+                    {element.type == "main"
+                      ? "แบบประเมินรวม"
+                      : element.summary[0].name}
+                  </p>
+                  <p className=" font-thin">
+                    {timesteampConverter(element.create_at._seconds)}
+                  </p>
+                </div>
+              </>
+            ))}
+        </div>
+        {historySelected && historySelected?.id != "" ? (
+          <Outlet context={historySelected} />
+        ) : null}
       </div>
     </>
   );

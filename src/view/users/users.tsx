@@ -30,7 +30,7 @@ function Users() {
   }
 
   return (
-    <div className="flex flex-col w-max gap-4 p-4">
+    <div className="flex flex-col w-full gap-4 p-4">
       <div className="flex flex-row justify-between ">
         <p>ข้อมูลรายบุคคล</p>
         <p>{moment().format("MMMM Do YYYY")}</p>
@@ -39,7 +39,7 @@ function Users() {
       <div className="flex flex-row gap-4">
         <table
           className={
-            (isuserSelected != "" ? " w-1/3 " : " w-max ") +
+            (isuserSelected != "" ? " w-1/3 " : " w-full ") +
             " h-fit table-autotext-main5 font-thin text-center items-center justify-center bg-white rounded-2xl"
           }
         >
@@ -78,11 +78,7 @@ function Users() {
             )}
           </tbody>
         </table>
-        {isuserSelected != "" ? (
-          <div className=" rounded-2xl p-4 bg-white">
-            <Outlet context={[isuserSelected]} />
-          </div>
-        ) : null}
+        {isuserSelected != "" ? <Outlet context={[isuserSelected]} /> : null}
       </div>
     </div>
   );
