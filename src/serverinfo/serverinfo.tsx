@@ -24,5 +24,8 @@ export const usersfindAll = users + "/findAll";
 const history = baseUrl + "/history";
 export const historyfindAll = history + "/findAll";
 
+const vent = baseUrl + "/vent";
+export const ventfindAll = vent + "/findAll";
+
 const storage = baseUrl + "/storage";
 export const storageImageupload = storage + "/uploadImage";

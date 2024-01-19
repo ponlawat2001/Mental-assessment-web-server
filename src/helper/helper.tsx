@@ -73,3 +73,17 @@ export const timesteampConverter = (timesteamp: number) => {
 
   return formattedDate;
 };
+
+export const timesteampConvertertotime = (timesteamp: number) => {
+  const datetime = new Date(timesteamp * 1000);
+  const options = {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  } as Intl.DateTimeFormatOptions;
+  const formattedDate = datetime.toLocaleDateString("en-US", options);
+
+  return formattedDate;
+};

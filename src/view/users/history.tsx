@@ -1,4 +1,7 @@
-import { timesteampConverter } from "@app/helper/helper";
+import {
+  timesteampConverter,
+  timesteampConvertertotime,
+} from "@app/helper/helper";
 import { HistoryResult } from "@app/interfaces/history.interface";
 import HistoryService from "@app/services/history.service";
 import { useEffect, useState } from "react";
@@ -29,8 +32,8 @@ export default function HistoryScreen() {
 
   return (
     <>
-      <div className="flex flex-row gap-4">
-        <div className="flex flex-col gap-4 rounded-2xl p-4 bg-white">
+      <div className="flex flex-row gap-4 ">
+        <div className="flex flex-col gap-4 rounded-2xl p-4 h-fit max-h-screen bg-white overflow-auto">
           <p className=" font-bold p-2 text-center ">
             ประวัติการทำแบบประเมินของผู้ใช้
           </p>
@@ -39,11 +42,12 @@ export default function HistoryScreen() {
             .map((element) => (
               <>
                 <div
-                  key={element.id}
+                  key={element?.id}
                   className={
                     (element?.id == historySelected?.id
-                      ? " border-4 border-main10 "
-                      : "") + " cursor-pointer bg-main30 p-4 rounded-2xl "
+                      ? " bg-main20 "
+                      : " bg-main30 ") +
+                    " cursor-pointer p-4 rounded-2xl hover:bg-light_green2 "
                   }
                   onClick={() => clickhitorySelected(element)}
                 >
@@ -53,7 +57,7 @@ export default function HistoryScreen() {
                       : element.summary[0].name}
                   </p>
                   <p className=" font-thin">
-                    {timesteampConverter(element.create_at._seconds)}
+                    {timesteampConvertertotime(element.create_at._seconds)}
                   </p>
                 </div>
               </>

@@ -19,7 +19,10 @@ export default {
         'edit': '#FFC786',
         'edit-hover': '#FFC786c2',
         'light_green': '#E4FDD7',
-        'light_green2': '#B7D1AA'
+        'light_green2': '#B7D1AA',
+        'link': '#5177FF',
+        'link-hover': '#5177FFc2',
+
       },
     },
   },

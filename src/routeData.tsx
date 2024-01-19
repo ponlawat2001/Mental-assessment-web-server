@@ -13,6 +13,7 @@ import Profile from "./view/profile/profile";
 import Users from "./view/users/users";
 import HistoryScreen from "./view/users/history";
 import HistoryDetail from "./view/users/history.detail";
+import VentScreen from "./view/users/vent";
 
 const routerData = createBrowserRouter([
   {
@@ -51,6 +52,11 @@ const routerData = createBrowserRouter([
             path: "history",
             element: <HistoryScreen />,
             children: [{ path: "historyDetail", element: <HistoryDetail /> }],
+          },
+          {
+            path: "vent",
+            element: <VentScreen />,
+            children: [{ path: "ventDetail", element: <></> }],
           },
         ],
       },
