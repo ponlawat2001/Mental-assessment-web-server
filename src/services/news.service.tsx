@@ -4,8 +4,8 @@ import {
   newsdelete,
   newsfindAll,
   newsupdate,
-} from "../serverinfo/serverinfo";
-import { NewsResult } from "../interfaces/news.interface";
+} from "@serverinfo/serverinfo";
+import { NewsResult } from "@interfaces/news.interface";
 
 export default class NewsService {
   static async fecth() {

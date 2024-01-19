@@ -1,7 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
-import info from "../../assets/icons/svg/info.svg";
-import NewsService from "../../services/news.service";
+import info from "@assets/icons/svg/info.svg";
+import NewsService from "@services/news.service";
 export default function Confirmdialog(props?: any) {
   const [isloading, setLoading] = useState(false);
 

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { storageImageupload } from "../serverinfo/serverinfo";
+import { storageImageupload } from "@serverinfo/serverinfo";
 
 export default class StorageService {
   static async uploadImage(imageFile: File) {

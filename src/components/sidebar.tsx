@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import Logo from "../assets/icons/Logo.png";
-import assessment from "../assets/icons/svg/assessment.svg";
-import news from "../assets/icons/svg/news.svg";
-import profile from "../assets/icons/svg/profile.svg";
-import users from "../assets/icons/svg/users.svg";
-import dashboard from "../assets/icons/svg/dashboard.svg";
-import logout from "../assets/icons/svg/logout.svg";
+import Logo from "@assets/icons/Logo.png";
+import assessment from "@assets/icons/svg/assessment.svg";
+import news from "@assets/icons/svg/news.svg";
+import profile from "@assets/icons/svg/profile.svg";
+import users from "@assets/icons/svg/users.svg";
+import dashboard from "@assets/icons/svg/dashboard.svg";
+import logout from "@assets/icons/svg/logout.svg";
 import { useState } from "react";
 
 function Sidebar() {

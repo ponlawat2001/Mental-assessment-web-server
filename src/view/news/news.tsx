@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import Editdialog from "./news.dialog";
-import ConfirmDialog from "./news.confirmdialog";
-import { NewsResult } from "../../interfaces/news.interface";
-import NewsService from "../../services/news.service";
-import deleteicon from "../../assets/icons/svg/delete.svg";
-import { TitleMenu } from "./newstitleMenu";
+import Editdialog from "@views/news/news.dialog";
+import ConfirmDialog from "@views/news/news.confirmdialog";
+import { NewsResult } from "@interfaces/news.interface";
+import NewsService from "@services/news.service";
+import deleteicon from "@assets/icons/svg/delete.svg";
+import { TitleMenu } from "@views/news/newstitleMenu";
 
 function News() {
   const [news, setNews] = useState<NewsResult[]>([]);

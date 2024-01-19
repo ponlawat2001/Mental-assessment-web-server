@@ -8,4 +8,16 @@ export default defineConfig({
     host: "0.0.0.0",
     port: 3000,
   },
+  resolve: {
+    alias: {
+      "@app": "/src/",
+      "@components": "/src/components",
+      "@interfaces": "/src/interfaces",
+      "@privateRoute": "/src/privateRoute",
+      "@services": "/src/services",
+      "@views": "/src/view",
+      "@assets": "/src/assets",
+      "@serverinfo": "/src/serverinfo",
+    },
+  },
 });

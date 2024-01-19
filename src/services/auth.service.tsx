@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { login, reset } from "../serverinfo/serverinfo";
+import { login, reset } from "@serverinfo/serverinfo";
 
 export default class AuthServices {
   static async Resetpassword(email: string) {

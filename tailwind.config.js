@@ -17,7 +17,11 @@ export default {
         'validation-hover': '#ff6464c2',
         'darkgray': '#636363',
         'edit': '#FFC786',
-        'edit-hover': '#FFC786c2'
+        'edit-hover': '#FFC786c2',
+        'light_green': '#E4FDD7',
+        'light_green2': '#B7D1AA',
+        'link': '#5177FF',
+        'link-hover': '#5177FFc2',
 
       },
     },
