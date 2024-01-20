@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ventfindAll } from "@serverinfo/serverinfo";
+import { audiofindAll, ventfindAll } from "@serverinfo/serverinfo";
 
 export default class VentService {
   static async fecth() {
@@ -9,6 +9,21 @@ export default class VentService {
     };
     try {
       const res = await axios.get(ventfindAll, { headers });
+      return res.data["result"];
+    } catch (e) {
+      localStorage.removeItem("jwt");
+      window.location.reload();
+      return e;
+    }
+  }
+
+  static async audiofecth() {
+    const headers = {
+      Authorization: "Bearer " + localStorage.getItem("jwt"),
+      "Content-Type": "application/json",
+    };
+    try {
+      const res = await axios.get(audiofindAll, { headers });
       return res.data["result"];
     } catch (e) {
       localStorage.removeItem("jwt");

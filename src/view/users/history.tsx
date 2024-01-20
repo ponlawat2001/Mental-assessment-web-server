@@ -32,36 +32,38 @@ export default function HistoryScreen() {
 
   return (
     <>
-      <div className="flex flex-row gap-4 ">
-        <div className="flex flex-col gap-4 rounded-2xl p-4 h-fit max-h-screen bg-white overflow-auto">
+      <div className="flex flex-row gap-4">
+        <div className="flex flex-col gap-4 rounded-2xl p-4 h-fit max-h-screen bg-white">
           <p className=" font-bold p-2 text-center ">
             ประวัติการทำแบบประเมินของผู้ใช้
           </p>
-          {history
-            ?.filter((value) => value.owner == isuserSelected)
-            .map((element) => (
-              <>
-                <div
-                  key={element?.id}
-                  className={
-                    (element?.id == historySelected?.id
-                      ? " bg-main20 "
-                      : " bg-main30 ") +
-                    " cursor-pointer p-4 rounded-2xl hover:bg-light_green2 "
-                  }
-                  onClick={() => clickhitorySelected(element)}
-                >
-                  <p>
-                    {element.type == "main"
-                      ? "แบบประเมินรวม"
-                      : element.summary[0].name}
-                  </p>
-                  <p className=" font-thin">
-                    {timesteampConvertertotime(element.create_at._seconds)}
-                  </p>
-                </div>
-              </>
-            ))}
+          <div className="flex flex-col gap-4 overflow-auto rounded-2xl">
+            {history
+              ?.filter((value) => value.owner == isuserSelected)
+              .map((element) => (
+                <>
+                  <div
+                    key={element?.id}
+                    className={
+                      (element?.id == historySelected?.id
+                        ? " bg-main20 "
+                        : " bg-main30 ") +
+                      " cursor-pointer p-4 rounded-2xl hover:bg-light_green2 "
+                    }
+                    onClick={() => clickhitorySelected(element)}
+                  >
+                    <p>
+                      {element.type == "main"
+                        ? "แบบประเมินรวม"
+                        : element.summary[0].name}
+                    </p>
+                    <p className=" font-thin">
+                      {timesteampConvertertotime(element.create_at._seconds)}
+                    </p>
+                  </div>
+                </>
+              ))}
+          </div>
         </div>
         {historySelected && historySelected?.id != "" ? (
           <Outlet context={historySelected} />

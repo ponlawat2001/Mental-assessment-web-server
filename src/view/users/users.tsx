@@ -79,7 +79,7 @@ function Users() {
       <div className="flex flex-row gap-4">
         <table
           className={
-            (isuserSelected != "" ? " w-1/3 " : " w-full ") +
+            (isuserSelected != "" ? " w-1/4 " : " w-full ") +
             " h-fit table-autotext-main5 font-thin text-center items-center justify-center bg-white rounded-2xl"
           }
         >
@@ -91,7 +91,7 @@ function Users() {
               <th className="px-4 py-2">อีเมล</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className=" max-h-screen h-fit overflow-auto ">
             {user?.map((u) =>
               avatar
                 ?.filter((value) => u.email == value.email)
@@ -101,7 +101,7 @@ function Users() {
                     className={
                       (isuserSelected == element.email ? " bg-main20 " : "  ") +
                       (counter % 2 == 0 ? " bg-light_green " : " ") +
-                      " cursor-pointer hover:bg-light_green2 "
+                      " cursor-pointer hover:bg-light_green2 rounded-2xl "
                     }
                     onClick={() => clickUserSelected(element.email, ishistory)}
                   >
