@@ -61,7 +61,7 @@ function Sidebar() {
               className={
                 e.path == path
                   ? "flex p-2 rounded w-10 h-10 justify-center items-center bg-main5"
-                  : "flex p-2 rounded w-10 h-10 justify-center items-center hover:bg-main20"
+                  : "flex p-2 rounded w-10 h-10 justify-center items-center hover:bg-main20 transition"
               }
               onClick={() => {
                 pathonChange(e.path);
@@ -73,7 +73,11 @@ function Sidebar() {
           ))}
         </div>
 
-        <Link onClick={signout} to="/">
+        <Link
+          className=" p-2 rounded justify-center items-center hover:bg-main20 transition "
+          onClick={signout}
+          to="/"
+        >
           <img src={logout} />
         </Link>
       </div>

@@ -48,7 +48,7 @@ function News() {
             <div
               key={element.id}
               onClick={() => openDialog(element)}
-              className=" cursor-pointe shadow-md bg-transparent p-0 rounded-2xl relative w-80 h-52 flex flex-col items-start justify-end"
+              className=" cursor-pointer shadow-md bg-transparent p-0 rounded-2xl relative w-80 h-52 flex flex-col items-start justify-end"
             >
               <img
                 className="absolute rounded-2xl object-cover h-52"

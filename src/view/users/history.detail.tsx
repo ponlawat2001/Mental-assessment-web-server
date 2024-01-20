@@ -27,7 +27,7 @@ export default function HistoryDetail() {
             <div className=" flex flex-col gap-4 w-full ">
               <div className="flex flex-row gap-2 ">
                 <p
-                  className=" underline font-thin cursor-pointer hover:text-main20 "
+                  className=" underline font-thin cursor-pointer hover:text-main20 transition"
                   onClick={() => ishidechange(element.name)}
                 >
                   คำตอบของผู้ใช้:

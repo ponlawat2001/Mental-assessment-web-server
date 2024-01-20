@@ -5,6 +5,12 @@ const auth = baseUrl + "/auth";
 export const login = auth + "/email/login";
 export const reset = auth + "/email/reset";
 
+const assessment = baseUrl + "/assessment";
+export const assessmentfindAll = assessment + "/findAll";
+export const assessmentcreate = assessment + "/create";
+export const assessmentdelete = assessment + "/delete";
+export const assessmentupdate = assessment + "/update";
+
 const news = baseUrl + "/news";
 export const newsfindAll = news + "/findAll";
 export const newsupdate = news + "/update";

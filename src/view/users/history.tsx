@@ -48,7 +48,7 @@ export default function HistoryScreen() {
                       (element?.id == historySelected?.id
                         ? " bg-main20 "
                         : " bg-main30 ") +
-                      " cursor-pointer p-4 rounded-2xl hover:bg-light_green2 "
+                      " cursor-pointer p-4 rounded-2xl hover:bg-light_green2 transition"
                     }
                     onClick={() => clickhitorySelected(element)}
                   >

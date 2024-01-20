@@ -56,7 +56,7 @@ function Users() {
             (ishistory
               ? " bg-gray-400 hover:bg-gray-400 "
               : " bg-link  hover:bg-link-hover ") +
-            "   w-fit rounded-3xl shadow-md px-4"
+            "   w-fit rounded-3xl shadow-md px-4 transition"
           }
           onClick={() => isChangemode(true)}
         >
@@ -68,7 +68,7 @@ function Users() {
             (!ishistory
               ? " bg-gray-400 hover:bg-gray-400 "
               : " bg-validation  hover:bg-validation-hover ") +
-            "   w-fit rounded-3xl shadow-md px-4"
+            "   w-fit rounded-3xl shadow-md px-4 transition"
           }
           onClick={() => isChangemode(false)}
         >
@@ -101,7 +101,7 @@ function Users() {
                     className={
                       (isuserSelected == element.email ? " bg-main20 " : "  ") +
                       (counter % 2 == 0 ? " bg-light_green " : " ") +
-                      " cursor-pointer hover:bg-light_green2 rounded-2xl "
+                      " cursor-pointer hover:bg-light_green2 rounded-2xl transition "
                     }
                     onClick={() => clickUserSelected(element.email, ishistory)}
                   >
