@@ -32,8 +32,9 @@ export default class AssessmentServices {
       });
       return res.data["result"];
     } catch (e) {
-      localStorage.removeItem("jwt");
-      window.location.reload();
+      console.log(e);
+      // localStorage.removeItem("jwt");
+      // window.location.reload();
       return e;
     }
   }

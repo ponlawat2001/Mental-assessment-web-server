@@ -116,13 +116,13 @@ function Contact() {
             {isEditMode ? (
               <div className="rounded-2xl cursor-pointer" {...getRootProps()}>
                 <img
-                  className=" max-w- rounded-2xl"
+                  className=" w-fit rounded-2xl"
                   src={imageUrl ?? contact![0].image_contact}
                 />
               </div>
             ) : (
               <img
-                className=" max-w- rounded-2xl"
+                className=" w-fit rounded-2xl"
                 src={contact![0].image_contact}
               />
             )}

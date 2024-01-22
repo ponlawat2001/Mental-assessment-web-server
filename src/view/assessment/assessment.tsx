@@ -86,6 +86,7 @@ function Assessment() {
                       (counter % 2 == 0 ? " bg-light_green " : " ") +
                       " cursor-pointer hover:bg-light_green2 rounded-2xl transition "
                     }
+                    onClick={() => clickSelected(element)}
                   >
                     <td className="p-4">{(counter = counter + 1)}</td>
                     <td className=" p-4">{element.name ?? "ไม่มีขื่อ"}</td>
