@@ -26,7 +26,7 @@ export default function AssessmentEdit() {
     handleSubmit,
     setValue,
     getValues,
-    formState: { errors },
+    formState: {},
   } = useForm<AssessmentResult>();
 
   useEffect(() => {
@@ -160,7 +160,7 @@ export default function AssessmentEdit() {
 
       if (isDelete) {
         newScorerate = prev.scorerate.filter(
-          (item, newindex) => newindex !== index
+          (_, newindex) => newindex !== index
         );
       } else {
         newScorerate = [
@@ -180,7 +180,7 @@ export default function AssessmentEdit() {
     setSelected((prev: AssessmentResult) => {
       let newAdvise;
       if (isDelete) {
-        newAdvise = prev.advise.filter((item, newindex) => newindex !== index);
+        newAdvise = prev.advise.filter((_, newindex) => newindex !== index);
       } else {
         newAdvise = [
           ...prev.advise,

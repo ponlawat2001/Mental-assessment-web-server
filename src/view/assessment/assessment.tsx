@@ -3,7 +3,7 @@ import { AssessmentResult } from "@app/interfaces/assessment.interface";
 import AssessmentServices from "@app/services/assessment.service";
 import moment from "moment";
 import { useEffect, useState } from "react";
-import { Navigate, Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 function Assessment() {
   let counter = 0;
