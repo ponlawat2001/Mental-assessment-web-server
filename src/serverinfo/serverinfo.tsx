@@ -34,7 +34,7 @@ const vent = baseUrl + "/vent";
 export const ventfindAll = vent + "/findAll";
 
 const audio = baseUrl + "/audio";
-export const audiofindAll = audio + "/findAll";
+export const audiofindAdmin = audio + "/findAdmin";
 
 const storage = baseUrl + "/storage";
 export const storageImageupload = storage + "/uploadImage";

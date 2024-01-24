@@ -29,11 +29,24 @@ export default function VentScreen() {
               {vent
                 ?.filter((value) => value.owner == isuserSelected)
                 .map((element) => (
-                  <div className=" flex flex-col bg-main30 p-4 rounded-2xl">
-                    <p>
+                  <div
+                    className={
+                      (element.is_delete
+                        ? " bg-validation-hover "
+                        : "bg-main30 ") + " flex flex-col p-4 rounded-2xl"
+                    }
+                  >
+                    <p className={element.is_delete ? " text-white" : ""}>
                       {timesteampConvertertotime(element.create_at._seconds)}
                     </p>
-                    <p>{element.vent_content}</p>
+                    <p className={element.is_delete ? " text-white" : ""}>
+                      {element.vent_content}
+                    </p>
+                    {element.is_delete ? (
+                      <span className=" text-sm text-white underline ">
+                        ถูกลบโดยผู้ใช้
+                      </span>
+                    ) : null}
                   </div>
                 ))}
             </div>
@@ -51,11 +64,22 @@ export default function VentScreen() {
               {audio
                 ?.filter((value) => value.owner == isuserSelected)
                 .map((element) => (
-                  <div className=" flex flex-col bg-main30 p-4 gap-4 rounded-2xl">
-                    <p>
+                  <div
+                    className={
+                      (element.is_delete
+                        ? " bg-validation-hover "
+                        : "bg-main30 ") + " flex flex-col p-4 gap-4 rounded-2xl"
+                    }
+                  >
+                    <p className={element.is_delete ? "text-white" : ""}>
                       {timesteampConvertertotime(element.create_at._seconds)}
                     </p>
                     <ReactAudioPlayer src={element.audioUrl} controls />
+                    {element.is_delete ? (
+                      <span className=" text-sm text-white ">
+                        ถูกลบโดยผู้ใช้
+                      </span>
+                    ) : null}
                   </div>
                 ))}
             </div>
