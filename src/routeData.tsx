@@ -14,6 +14,7 @@ import Users from "./view/users/users";
 import HistoryScreen from "./view/users/history";
 import HistoryDetail from "./view/users/history.detail";
 import VentScreen from "./view/users/vent";
+import AssessmentEdit from "./view/assessment/assessment.dialog";
 
 const routerData = createBrowserRouter([
   {
@@ -31,6 +32,12 @@ const routerData = createBrowserRouter([
       {
         path: "assessment",
         element: <Assessment />,
+        children: [
+          {
+            path: "assessmentDetail",
+            element: <AssessmentEdit />,
+          },
+        ],
       },
       {
         path: "contact",

@@ -26,7 +26,7 @@ export function TitleMenu(props: any) {
       </div>
       <div className="flex flex-row justify-end gap-4">
         <button
-          className=" bg-validation hover:bg-validation-hover w-24 rounded-3xl shadow-md"
+          className=" bg-validation hover:bg-validation-hover w-24 rounded-3xl shadow-md transition"
           onClick={deleteMode}
         >
           ลบข่าว

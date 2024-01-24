@@ -47,7 +47,7 @@ export default function Confirmdialog(props?: any) {
                 {isloading ? (
                   <button
                     disabled={true}
-                    className=" bg-gray-400 hover:bg-gray-400"
+                    className=" bg-gray-400 hover:bg-gray-400 transition"
                   >
                     Loading
                   </button>
@@ -58,7 +58,7 @@ export default function Confirmdialog(props?: any) {
                       onClick={() => {
                         newsDelete(props.element?.id);
                       }}
-                      className=" text-white bg-validation hover:bg-validation-hover inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2  focus-visible:ring-offset-2"
+                      className=" text-white bg-validation hover:bg-validation-hover inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2  focus-visible:ring-offset-2 transition"
                     >
                       ยืนยัน
                     </button>

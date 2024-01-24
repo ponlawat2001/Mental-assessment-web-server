@@ -80,7 +80,7 @@ function Contact() {
           {isloading ? (
             <button
               disabled={true}
-              className=" bg-gray-400 w-24 rounded-3xl hover:bg-gray-400"
+              className=" bg-gray-400 w-24 rounded-3xl hover:bg-gray-400 transition"
             >
               Loading
             </button>
@@ -88,13 +88,13 @@ function Contact() {
             <>
               <button
                 type="submit"
-                className=" bg-main10 hover:bg-main20 w-24 rounded-3xl shadow-md "
+                className=" bg-main10 hover:bg-main20 w-24 rounded-3xl shadow-md transition "
               >
                 บันทึก
               </button>
               <button
                 type="button"
-                className=" bg-validation hover:bg-validation-hover w-24 rounded-3xl shadow-md "
+                className=" bg-validation hover:bg-validation-hover w-24 rounded-3xl shadow-md transition "
                 onClick={(e) => cancleEdit(e)}
               >
                 ยกเลิก
@@ -103,7 +103,7 @@ function Contact() {
           ) : (
             <button
               type="button"
-              className=" bg-edit hover:bg-edit-hover w-24 rounded-3xl shadow-md"
+              className=" bg-edit hover:bg-edit-hover w-24 rounded-3xl shadow-md transition"
               onClick={(e) => switchEditmode(e)}
             >
               แก้ไข
@@ -116,13 +116,13 @@ function Contact() {
             {isEditMode ? (
               <div className="rounded-2xl cursor-pointer" {...getRootProps()}>
                 <img
-                  className=" max-w- rounded-2xl"
+                  className=" w-fit rounded-2xl"
                   src={imageUrl ?? contact![0].image_contact}
                 />
               </div>
             ) : (
               <img
-                className=" max-w- rounded-2xl"
+                className=" w-fit rounded-2xl"
                 src={contact![0].image_contact}
               />
             )}

@@ -169,7 +169,7 @@ export default function Editdialog(props?: any) {
                   {isloading ? (
                     <button
                       disabled={true}
-                      className=" bg-gray-400 hover:bg-gray-400"
+                      className=" bg-gray-400 hover:bg-gray-400 transition"
                     >
                       Loading
                     </button>
@@ -177,13 +177,13 @@ export default function Editdialog(props?: any) {
                     <div className="flex flex-row gap-4 mt-4">
                       <button
                         type="submit"
-                        className=" text-white bg-main10 hover:bg-main20 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2  focus-visible:ring-offset-2"
+                        className=" text-white bg-main10 hover:bg-main20 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2  focus-visible:ring-offset-2 transition"
                       >
                         บันทึก
                       </button>
                       <button
                         type="button"
-                        className="inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium  bg-validation hover:bg-validation-hover shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                        className="inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium  bg-validation hover:bg-validation-hover shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 transition"
                         onClick={props.onClose}
                       >
                         ยกเลิก
