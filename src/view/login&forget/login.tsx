@@ -52,14 +52,19 @@ function LoginScreen(props: any) {
       localStorage.removeItem("rememberstate");
     }
     setloadingstate(true);
-    const res: string = await authServices.Login(
-      data.email,
-      data.password,
-      props
-    );
-    if (res == "") {
-      seterrorText("Incorrect Password or Email");
-    }
+
+    authServices.findEmail(data.email).then(async (res: any[]) => {
+      if (res.length != 0) {
+        authServices.Login(data.email, data.password, props).then((res) => {
+          if (res == "") {
+            seterrorText("Incorrect Password or Email");
+          }
+        });
+      } else {
+        seterrorText("This Email have no permission");
+      }
+    });
+
     setloadingstate(false);
   };
 

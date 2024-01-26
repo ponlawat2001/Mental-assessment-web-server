@@ -5,6 +5,15 @@ const auth = baseUrl + "/auth";
 export const login = auth + "/email/login";
 export const reset = auth + "/email/reset";
 
+const user = baseUrl + "/users";
+export const usersCreate = user + "/create";
+
+const admin = baseUrl + "/admin";
+export const adminfindEmail = admin + "/findEmail";
+export const adminfindAll = admin + "/findAll";
+export const admindelete = admin + "/delete";
+export const admincreate = admin + "/create";
+
 const assessment = baseUrl + "/assessment";
 export const assessmentfindAll = assessment + "/findAll";
 export const assessmentcreate = assessment + "/create";

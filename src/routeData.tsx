@@ -15,6 +15,7 @@ import HistoryScreen from "./view/users/history";
 import HistoryDetail from "./view/users/history.detail";
 import VentScreen from "./view/users/vent";
 import AssessmentEdit from "./view/assessment/assessment.dialog";
+import Admin from "./view/admin/admin";
 
 const routerData = createBrowserRouter([
   {
@@ -66,6 +67,10 @@ const routerData = createBrowserRouter([
             children: [{ path: "ventDetail", element: <></> }],
           },
         ],
+      },
+      {
+        path: "admin",
+        element: <Admin />,
       },
     ],
   },

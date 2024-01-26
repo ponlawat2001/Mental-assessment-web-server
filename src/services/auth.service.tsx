@@ -1,5 +1,13 @@
 import axios, { AxiosResponse } from "axios";
-import { login, reset } from "@serverinfo/serverinfo";
+import {
+  admincreate,
+  admindelete,
+  adminfindAll,
+  adminfindEmail,
+  login,
+  reset,
+  usersCreate,
+} from "@serverinfo/serverinfo";
 
 export default class AuthServices {
   static async Resetpassword(email: string) {
@@ -13,6 +21,19 @@ export default class AuthServices {
       return e;
     }
   }
+
+  static async createUser(email: string, password: string) {
+    try {
+      const res = await axios.post(usersCreate, {
+        email: email,
+        password: password,
+      });
+      return res.data["message"];
+    } catch (e) {
+      return e;
+    }
+  }
+
   static async Login(email: string, password: string, props: any) {
     return axios
       .post(login, {
@@ -30,5 +51,59 @@ export default class AuthServices {
       });
   }
 
-  static async fetchnewtoken() {}
+  static async findEmail(email: string) {
+    return axios
+      .get(`${adminfindEmail}/${email}`)
+      .then((res: AxiosResponse<any, any>) => {
+        return res.data["result"];
+      })
+      .catch((e) => {
+        return e;
+      });
+  }
+
+  static async adminfindAll() {
+    return axios
+      .get(adminfindAll)
+      .then((res) => {
+        return res.data["result"];
+      })
+      .catch((e) => {
+        return e;
+      });
+  }
+
+  static async adminDelete(id: string) {
+    const headers = {
+      Authorization: "Bearer " + localStorage.getItem("jwt"),
+      "Content-Type": "application/json",
+    };
+    try {
+      const res = await axios.delete(`${admindelete}/${id}`, {
+        headers,
+      });
+      return res.data["result"];
+    } catch (e) {
+      localStorage.removeItem("jwt");
+      window.location.reload();
+      return e;
+    }
+  }
+
+  static async adminCreate(data: { email: string; password: string }) {
+    const headers = {
+      Authorization: "Bearer " + localStorage.getItem("jwt"),
+      "Content-Type": "application/json",
+    };
+    try {
+      const res = await axios.post(admincreate, data, {
+        headers,
+      });
+      return res.data["result"];
+    } catch (e) {
+      localStorage.removeItem("jwt");
+      window.location.reload();
+      return e;
+    }
+  }
 }
