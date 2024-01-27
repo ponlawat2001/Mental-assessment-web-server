@@ -63,12 +63,18 @@ export default class AuthServices {
   }
 
   static async adminfindAll() {
+    const headers = {
+      Authorization: "Bearer " + localStorage.getItem("jwt"),
+      "Content-Type": "application/json",
+    };
     return axios
-      .get(adminfindAll)
+      .get(adminfindAll, { headers })
       .then((res) => {
         return res.data["result"];
       })
       .catch((e) => {
+        localStorage.removeItem("jwt");
+        window.location.reload();
         return e;
       });
   }
