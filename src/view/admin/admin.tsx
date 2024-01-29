@@ -22,7 +22,7 @@ function Admin() {
   return (
     <div className="flex flex-col w-full gap-4 p-4">
       <div className="flex flex-row justify-between ">
-        <p>แบบประเมินสภาวะทางจิต</p>
+        <p>จัดการแอดมิน</p>
         <p>{moment().format("MMMM Do YYYY")}</p>
       </div>
       <div className="flex flex-row justify-end ">

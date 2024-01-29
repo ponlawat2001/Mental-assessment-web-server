@@ -4,6 +4,7 @@ import AssessmentServices from "@app/services/assessment.service";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
+import AssessmentAdddialog from "./assessment.addDialog";
 
 function Assessment() {
   let counter = 0;
@@ -11,6 +12,7 @@ function Assessment() {
   const [selectedAssessment, setSelected] = useState<AssessmentResult | null>(
     null
   );
+  const [opendialog, setdialog] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,8 +36,15 @@ function Assessment() {
         <p>แบบประเมินสภาวะทางจิต</p>
         <p>{moment().format("MMMM Do YYYY")}</p>
       </div>
+      <div className="flex flex-row justify-end ">
+        <button
+          className=" w-fit rounded-2xl px-4"
+          onClick={() => setdialog(true)}
+        >
+          เพิ่มแบบประเมิน
+        </button>
+      </div>
       <div className="w-full bg-main5 rounded" style={{ height: 1 }}></div>
-
       {!selectedAssessment ? (
         <div className="flex flex-row gap-4">
           <table className=" w-full h-fit table-autotext-main5 font-thin text-center items-center justify-center bg-white rounded-2xl">
@@ -111,6 +120,7 @@ function Assessment() {
       ) : (
         <Outlet context={[selectedAssessment, setSelected]} />
       )}
+      <AssessmentAdddialog open={opendialog} onClose={() => setdialog(false)} />
     </div>
   );
 }
