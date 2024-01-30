@@ -6,6 +6,7 @@ import profile from "@assets/icons/svg/profile.svg";
 import users from "@assets/icons/svg/users.svg";
 import dashboard from "@assets/icons/svg/dashboard.svg";
 import logout from "@assets/icons/svg/logout.svg";
+import setting from "@assets/icons/svg/setting.svg";
 import { useState } from "react";
 
 function Sidebar() {
@@ -31,6 +32,10 @@ function Sidebar() {
     {
       path: "/users",
       icon: users,
+    },
+    {
+      path: "/admin",
+      icon: setting,
     },
   ];
 

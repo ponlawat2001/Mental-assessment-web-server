@@ -7,15 +7,18 @@ import {
   Questionnaire,
   Scorerate,
 } from "@app/interfaces/assessment.interface";
+import TextareaAutosize from "react-textarea-autosize";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import rightsign from "@assets/icons/rightsign.svg";
 import DropdownMenu from "./assessment.dropdownmenu";
 import AssessmentServices from "@app/services/assessment.service";
 import React from "react";
+import AssessmentConfirmdialog from "./assessment.confirmDialog";
 
 export default function AssessmentEdit() {
   const navigate = useNavigate();
   const [isloading, setLoading] = useState(false);
+  const [isopen, setOpen] = useState(false);
   const [assessmentSelected, setSelected] = useOutletContext<
     AssessmentResult | React.SetStateAction<AssessmentResult | any>
   >();
@@ -42,6 +45,10 @@ export default function AssessmentEdit() {
       );
     }
   }, [assessmentSelected, setValue]);
+
+  const closeDialog = () => {
+    setOpen(false);
+  };
 
   const onSubmit: SubmitHandler<AssessmentResult> = async (data) => {
     setLoading(true);
@@ -222,16 +229,37 @@ export default function AssessmentEdit() {
       className="flex flex-col gap-4"
       onSubmit={handleSubmit(onSubmit, onError)}
     >
-      <button
-        type="button"
-        className="flex flex-row gap-2 w-fit rounded-xl items-center px-2 cursor-pointer bg-white hover:text-main20 transition"
-        onClick={goback}
-      >
-        <img src={rightsign} />
-        <p className="flex justify-start text-md font-medium  transition ">
-          ย้อนกลับ
-        </p>
-      </button>
+      <div className=" flex flex-row justify-between">
+        <button
+          type="button"
+          className="flex flex-row gap-2 w-fit rounded-xl items-center px-2 cursor-pointer bg-white hover:text-main20 transition"
+          onClick={goback}
+        >
+          <img src={rightsign} />
+          <p className="flex justify-start text-md font-medium  transition ">
+            ย้อนกลับ
+          </p>
+        </button>
+        {isloading ? (
+          <button
+            disabled={true}
+            className="flex flex-row gap-2 w-fit rounded-xl items-center px-2 bg-gray-400 hover:bg-gray-400 transition"
+          >
+            Loading
+          </button>
+        ) : (
+          <button
+            type="button"
+            className="flex flex-row gap-2 w-fit rounded-xl items-center px-2 cursor-pointer bg-white hover:text-main20 transition"
+            onClick={() => setOpen(true)}
+          >
+            <span className="flex justify-start text-md font-medium transition ">
+              ลบแบบประเมิน
+            </span>
+          </button>
+        )}
+      </div>
+
       <div className="flex flex-col rounded-2xl bg-white gap-4 p-4">
         <p>ชื่อแบบประเมิน</p>
         <input
@@ -244,8 +272,7 @@ export default function AssessmentEdit() {
           })}
         />
         <p>คำอธิบายแบบประเมิน</p>
-        <input
-          type="text"
+        <TextareaAutosize
           defaultValue={assessmentSelected?.description}
           placeholder="ระบุคำอธิบาย"
           className=" text-main5 font-thin w-full border-2 bg-transparent py-2 pl-4  focus:ring-0 text-sm rounded-lg"
@@ -258,7 +285,8 @@ export default function AssessmentEdit() {
           <DropdownMenu type={type} setType={setType} />
         </div>
         {assessmentSelected?.answer.length ==
-        assessmentSelected?.questionnaire.length ? (
+          assessmentSelected?.questionnaire.length &&
+        assessmentSelected?.answer[0].choices ? (
           <>
             <p>ตัวเลือกทั้งหมดและคะแนน</p>
             {assessmentSelected?.questionnaire.map(
@@ -479,7 +507,7 @@ export default function AssessmentEdit() {
                   )}
                 </div>
                 <p className=" text-sm font-thin w-max justify-center items-center">
-                  ผลการประเมิน
+                  ผลการประเมิน (นับจากคะแนนรวม)
                 </p>
                 <div className="flex flex-col gap-4">
                   {element.rate.map((e, rateindex) => (
@@ -497,6 +525,7 @@ export default function AssessmentEdit() {
                             }
                           )}
                         />
+                        <p className=" text-sm font-thin">มากกว่าหรือเท่ากับ</p>
                         <input
                           type="text"
                           id="score"
@@ -581,7 +610,7 @@ export default function AssessmentEdit() {
         <p>คำแนะนำ</p>
         {assessmentSelected?.advise.map((advise: Advise, index: number) => (
           <React.Fragment key={index}>
-            <textarea
+            <TextareaAutosize
               id="advise"
               defaultValue={advise.advise}
               placeholder="ระบุคำแนะนำ"
@@ -652,6 +681,11 @@ export default function AssessmentEdit() {
           </button>
         </div>
       )}
+      <AssessmentConfirmdialog
+        open={isopen}
+        onClose={closeDialog}
+        id={assessmentSelected?.id}
+      />
     </form>
   );
 }

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { audiofindAll, ventfindAll } from "@serverinfo/serverinfo";
+import { audiofindAdmin, ventfindAll } from "@serverinfo/serverinfo";
 
 export default class VentService {
   static async fecth() {
@@ -23,7 +23,7 @@ export default class VentService {
       "Content-Type": "application/json",
     };
     try {
-      const res = await axios.get(audiofindAll, { headers });
+      const res = await axios.get(audiofindAdmin, { headers });
       return res.data["result"];
     } catch (e) {
       localStorage.removeItem("jwt");
