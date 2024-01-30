@@ -5,7 +5,7 @@ import LoginScreen from "./view/login&forget/login";
 import PrivateRoute from "./privateRoute/privateRoute";
 import Forgetpassword from "./view/login&forget/forgetpassword";
 import ForgetpasswordSuccess from "./view/login&forget/forgetsucess";
-import Dashboard from "./view/dashboard";
+import Dashboard from "./view/dashboard/dashboard";
 import Assessment from "./view/assessment/assessment";
 import Contact from "./view/contact/contact";
 import News from "./view/news/news";
