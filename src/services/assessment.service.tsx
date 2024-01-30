@@ -3,6 +3,7 @@ import {
   assessmentfindAll,
   assessmentupdate,
   assessmentdelete,
+  assessmentcreate,
 } from "@app/serverinfo/serverinfo";
 import axios from "axios";
 
@@ -16,6 +17,24 @@ export default class AssessmentServices {
       const res = await axios.get(assessmentfindAll, { headers });
       return res.data["result"];
     } catch (e) {
+      localStorage.removeItem("jwt");
+      window.location.reload();
+      return e;
+    }
+  }
+
+  static async create(data: AssessmentResult) {
+    const headers = {
+      Authorization: "Bearer " + localStorage.getItem("jwt"),
+      "Content-Type": "application/json",
+    };
+    try {
+      const res = await axios.post(`${assessmentcreate}`, data, {
+        headers,
+      });
+      return res.data["result"];
+    } catch (e) {
+      console.log(e);
       localStorage.removeItem("jwt");
       window.location.reload();
       return e;

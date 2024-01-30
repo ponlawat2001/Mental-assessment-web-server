@@ -12,6 +12,7 @@ import {
 import TextareaAutosize from "react-textarea-autosize";
 import DropdownMenu from "./assessment.dropdownmenu";
 import React from "react";
+import AssessmentServices from "@app/services/assessment.service";
 
 export default function AssessmentAdddialog(props?: any) {
   const [isloading, setLoading] = useState(false);
@@ -76,7 +77,6 @@ export default function AssessmentAdddialog(props?: any) {
           score: 0,
         } as Choice);
       }
-      console.log(updatedAnswer);
       return { ...prev, answer: updatedAnswer };
     });
   };
@@ -137,6 +137,19 @@ export default function AssessmentAdddialog(props?: any) {
     });
   };
 
+  const handleChoices = (isDelete: boolean, id: number) => {
+    setAssessmentInit((prev: AssessmentResult) => {
+      let newAnswer;
+
+      if (isDelete) {
+        newAnswer = prev.answer.filter((item) => item.id !== id);
+      } else {
+        newAnswer = [...prev.answer, { id: id, choices: [] } as Answer];
+      }
+      return { ...prev, answer: newAnswer };
+    });
+  };
+
   const handleCheckboxChange = (
     elementIndex: number,
     id: number,
@@ -160,7 +173,60 @@ export default function AssessmentAdddialog(props?: any) {
     }
   };
 
-  const onSubmit: SubmitHandler<AssessmentResult> = async (data) => {};
+  const onSubmit: SubmitHandler<AssessmentResult> = async (data) => {
+    setLoading(true);
+    data.id = assessmentinit?.id;
+    data.type = type;
+
+    let temp = data.answer.length;
+    for (let i = 1; i <= temp - assessmentinit.answer.length; i++) {
+      data.answer.pop();
+    }
+
+    temp = data.questionnaire.length;
+    for (let i = 1; i <= temp - assessmentinit.questionnaire.length; i++) {
+      data.questionnaire.pop();
+    }
+
+    temp = data.scorerate.length;
+    for (let i = 1; i <= temp - assessmentinit.scorerate.length; i++) {
+      data.scorerate.pop();
+    }
+
+    temp = data.advise.length;
+    for (let i = 1; i <= temp - assessmentinit.advise.length; i++) {
+      data.advise.pop();
+    }
+
+    assessmentinit.scorerate.map((element: Scorerate, index: number) => {
+      temp = data.scorerate[index].rate.length;
+      for (let i = 1; i <= temp - element.rate.length; i++) {
+        data.scorerate[index].rate.pop();
+      }
+    });
+    if (assessmentinit.answer.choices) {
+      assessmentinit.answer.map((element: Answer, index: number) => {
+        temp = data.answer[index].choices!.length;
+        for (let i = 1; i <= temp - element.choices!.length; i++) {
+          data.answer[index].choices!.pop();
+        }
+      });
+    }
+
+    for (let i = 1; i <= assessmentinit.questionnaire.length; i++) {
+      data.questionnaire[i - 1].id = i;
+    }
+
+    for (let i = 1; i <= assessmentinit.answer.length; i++) {
+      data.answer[i - 1].id = i;
+    }
+
+    AssessmentServices.create(data).then(() => {
+      window.location.reload();
+      setLoading(false);
+    });
+    console.log(data);
+  };
 
   const initAssessment = (e: any, ismode: boolean) => {
     var temp: AssessmentResult = !ismode
@@ -204,7 +270,6 @@ export default function AssessmentAdddialog(props?: any) {
           advise: [{ name: "", advise: "", rate: 0 }] as Advise[],
         } as AssessmentResult);
     e ? e.preventDefault() : null;
-
     setAssessmentInit(temp);
   };
   useEffect(() => {
@@ -212,7 +277,7 @@ export default function AssessmentAdddialog(props?: any) {
     if (assessmentinit == null) {
       initAssessment(null, false);
     }
-  }, [assessmentinit]);
+  }, [assessmentinit, initAssessment]);
   return (
     <Transition appear show={props.open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={() => {}}>
@@ -317,8 +382,7 @@ export default function AssessmentAdddialog(props?: any) {
                               <div className=" flex flex-row gap-4">
                                 <input
                                   type="text"
-                                  defaultValue={element.title}
-                                  placeholder="Enter title"
+                                  placeholder="ระบุคำถาม"
                                   className=" text-main5 font-thin w-full border-2 bg-transparent py-2 pl-4  focus:ring-0 text-sm rounded-lg"
                                   {...register(`questionnaire.${index}.title`, {
                                     required: "กรุณาอย่าเว้นว่าง",
@@ -337,8 +401,7 @@ export default function AssessmentAdddialog(props?: any) {
                                         <div className=" flex flex-row gap-4">
                                           <input
                                             type="text"
-                                            defaultValue={e.name}
-                                            placeholder="Enter title"
+                                            placeholder="ระบุคำตอบ"
                                             className=" text-main5 font-thin w-full border-2 bg-transparent py-2 pl-4  focus:ring-0 text-sm rounded-lg"
                                             {...register(
                                               `answer.${index}.choices.${innerindex}.name`,
@@ -351,7 +414,7 @@ export default function AssessmentAdddialog(props?: any) {
                                             type="text"
                                             id="score"
                                             defaultValue={e.score}
-                                            placeholder="Enter title"
+                                            placeholder="ระบุคะแนน"
                                             className=" text-main5 font-thin w-full border-2 bg-transparent py-2 pl-4  focus:ring-0 text-sm rounded-lg"
                                             {...register(
                                               `answer.${index}.choices.${innerindex}.score`,
@@ -372,7 +435,7 @@ export default function AssessmentAdddialog(props?: any) {
                                           handleAnswerChoice(
                                             false,
                                             answer.choices!.length - 1,
-                                            answerindex
+                                            index
                                           )
                                         }
                                       >
@@ -381,13 +444,13 @@ export default function AssessmentAdddialog(props?: any) {
                                       <button
                                         type="button"
                                         className=" bg-white text-main5 border-2"
-                                        onClick={() =>
+                                        onClick={() => {
                                           handleAnswerChoice(
                                             true,
                                             answer.choices!.length - 1,
-                                            answerindex
-                                          )
-                                        }
+                                            index
+                                          );
+                                        }}
                                       >
                                         - ลบคำตอบ
                                       </button>
@@ -405,29 +468,59 @@ export default function AssessmentAdddialog(props?: any) {
                             </React.Fragment>
                           )
                         )}
+                        <div className="flex flex-row gap-4">
+                          <button
+                            type="button"
+                            className=" bg-white text-main5 border-2"
+                            onClick={() => {
+                              handleQuestion(
+                                false,
+                                assessmentinit?.questionnaire.length + 1
+                              );
+                              handleChoices(
+                                false,
+                                assessmentinit?.questionnaire.length + 1
+                              );
+                            }}
+                          >
+                            + เพิ่มคำถาม
+                          </button>
+                          <button
+                            type="button"
+                            className=" bg-white text-main5 border-2"
+                            onClick={() => {
+                              handleQuestion(
+                                true,
+                                assessmentinit?.questionnaire.length
+                              );
+                              handleChoices(
+                                true,
+                                assessmentinit?.questionnaire.length
+                              );
+                            }}
+                          >
+                            - ลบคำถาม
+                          </button>
+                        </div>
                       </>
                     ) : (
                       <>
                         <p>ตัวเลือกทั้งหมดและคะแนน</p>
                         {assessmentinit?.answer.map(
-                          (element: Answer, index: number) => (
+                          (_: Answer, index: number) => (
                             <React.Fragment key={index}>
                               <div className=" flex flex-row gap-4">
                                 <input
-                                  key={element.id}
                                   type="text"
-                                  defaultValue={element.name}
-                                  placeholder="Enter title"
+                                  placeholder="ระบุตัวเลือก"
                                   className=" text-main5 font-thin w-full border-2 bg-transparent py-2 pl-4  focus:ring-0 text-sm rounded-lg"
                                   {...register(`answer.${index}.name`, {
                                     required: "กรุณาอย่าเว้นว่าง",
                                   })}
                                 />
                                 <input
-                                  key={element.score}
                                   type="text"
-                                  defaultValue={element.score}
-                                  placeholder="Enter title"
+                                  placeholder="ระบุคะแนน"
                                   className=" text-main5 font-thin w-full border-2 bg-transparent py-2 pl-4  focus:ring-0 text-sm rounded-lg"
                                   {...register(`answer.${index}.score`, {
                                     required: "กรุณาอย่าเว้นว่าง",
@@ -472,8 +565,7 @@ export default function AssessmentAdddialog(props?: any) {
                                 </p>
                                 <input
                                   type="text"
-                                  defaultValue={element.title}
-                                  placeholder="Enter title"
+                                  placeholder="ระบุคำถาม"
                                   className=" text-main5 font-thin w-full border-2 bg-transparent py-2 pl-4  focus:ring-0 text-sm rounded-lg"
                                   {...register(`questionnaire.${index}.title`, {
                                     required: "กรุณาอย่าเว้นว่าง",
@@ -537,9 +629,7 @@ export default function AssessmentAdddialog(props?: any) {
                             </p>
                             <input
                               type="text"
-                              id="name"
-                              defaultValue={element.name}
-                              placeholder="Enter title"
+                              placeholder="ระบุหัวข้อด้านการประเมิน"
                               className=" text-main5 font-thin w-full border-2 bg-transparent py-2 pl-4  focus:ring-0 text-sm rounded-lg"
                               {...register(`scorerate.${index}.name`, {
                                 required: "กรุณาอย่าเว้นว่าง",
@@ -581,7 +671,7 @@ export default function AssessmentAdddialog(props?: any) {
                                     <input
                                       type="text"
                                       defaultValue={e.name}
-                                      placeholder="Enter title"
+                                      placeholder="ระบุผลการประเมิน"
                                       className=" text-main5 font-thin w-full border-2 bg-transparent py-2 pl-4  focus:ring-0 text-sm rounded-lg"
                                       {...register(
                                         `scorerate.${index}.rate.${rateindex}.name`,
@@ -596,7 +686,6 @@ export default function AssessmentAdddialog(props?: any) {
                                     <input
                                       type="text"
                                       id="score"
-                                      defaultValue={e.score}
                                       placeholder="ระบุขั้นต่ำของคะแนนรวม"
                                       className=" text-main5 font-thin w-full border-2 bg-transparent py-2 pl-4  focus:ring-0 text-sm rounded-lg"
                                       {...register(
@@ -683,42 +772,38 @@ export default function AssessmentAdddialog(props?: any) {
                   </div>
                   <div className="flex flex-col rounded-2xl bg-white gap-4 p-4 w-full">
                     <p>คำแนะนำ</p>
-                    {assessmentinit?.advise.map(
-                      (advise: Advise, index: number) => (
-                        <React.Fragment key={index}>
-                          <TextareaAutosize
+                    {assessmentinit?.advise.map((_: Advise, index: number) => (
+                      <React.Fragment key={index}>
+                        <TextareaAutosize
+                          id="advise"
+                          placeholder="ระบุคำแนะนำ"
+                          className=" h-auto text-main5 font-thin w-full border-2 bg-transparent py-2 pl-4  focus:ring-0 text-sm rounded-lg"
+                          {...register(`advise.${index}.advise`, {
+                            required: "กรุณาอย่าเว้นว่าง",
+                          })}
+                        />
+                        <div className=" flex flex-row justify-between items-center">
+                          <p>เมื่อได้คะแนนรวมมากกว่า</p>
+                          <input
+                            type="text"
                             id="advise"
-                            defaultValue={advise.advise}
-                            placeholder="ระบุคำแนะนำ"
-                            className=" h-auto text-main5 font-thin w-full border-2 bg-transparent py-2 pl-4  focus:ring-0 text-sm rounded-lg"
-                            {...register(`advise.${index}.advise`, {
+                            placeholder="ระบุขั้นต่ำของคะแนนรวม"
+                            className=" text-main5 font-thin w-fit border-2 bg-transparent py-2 pl-4  focus:ring-0 text-sm rounded-lg"
+                            {...register(`advise.${index}.rate`, {
+                              valueAsNumber: true,
                               required: "กรุณาอย่าเว้นว่าง",
                             })}
                           />
-                          <div className=" flex flex-row justify-between items-center">
-                            <p>เมื่อได้คะแนนรวมมากกว่า</p>
-                            <input
-                              type="text"
-                              id="advise"
-                              defaultValue={advise.rate}
-                              placeholder="ระบุขั้นต่ำของคะแนนรวม"
-                              className=" text-main5 font-thin w-fit border-2 bg-transparent py-2 pl-4  focus:ring-0 text-sm rounded-lg"
-                              {...register(`advise.${index}.rate`, {
-                                valueAsNumber: true,
-                                required: "กรุณาอย่าเว้นว่าง",
-                              })}
-                            />
-                          </div>
+                        </div>
 
-                          {index != assessmentinit?.advise.length - 1 ? (
-                            <div
-                              className=" w-full bg-main5 rounded self-center"
-                              style={{ height: 1 }}
-                            ></div>
-                          ) : null}
-                        </React.Fragment>
-                      )
-                    )}
+                        {index != assessmentinit?.advise.length - 1 ? (
+                          <div
+                            className=" w-full bg-main5 rounded self-center"
+                            style={{ height: 1 }}
+                          ></div>
+                        ) : null}
+                      </React.Fragment>
+                    ))}
                     <div className="flex flex-row gap-4">
                       <button
                         type="button"
@@ -740,21 +825,32 @@ export default function AssessmentAdddialog(props?: any) {
                       </button>
                     </div>
                   </div>
+
                   <div className="flex w-full flex-row gap-4 ">
-                    <button
-                      type="submit"
-                      onClick={() => {}}
-                      className=" text-white bg-validation hover:bg-validation-hover inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2  focus-visible:ring-offset-2 transition"
-                    >
-                      ยืนยัน
-                    </button>
-                    <button
-                      type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium bg-main10 hover:bg-main20 shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-                      onClick={props.onClose}
-                    >
-                      ยกเลิก
-                    </button>
+                    {isloading ? (
+                      <button
+                        disabled={true}
+                        className=" justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2  focus-visible:ring-offset-2 bg-gray-400 hover:bg-gray-400 transition"
+                      >
+                        Loading
+                      </button>
+                    ) : (
+                      <>
+                        <button
+                          type="submit"
+                          className=" text-white  bg-main10 hover:bg-main20 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2  focus-visible:ring-offset-2 transition"
+                        >
+                          บันทึก
+                        </button>
+                        <button
+                          type="button"
+                          className="inline-flex justify-center bg-validation hover:bg-validation-hover rounded-md border border-transparent px-4 py-2 text-sm font-medium  shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                          onClick={props.onClose}
+                        >
+                          ยกเลิก
+                        </button>
+                      </>
+                    )}
                   </div>
                 </form>
               </Dialog.Panel>

@@ -63,9 +63,8 @@ function LoginScreen(props: any) {
       } else {
         seterrorText("This Email have no permission");
       }
+      setloadingstate(false);
     });
-
-    setloadingstate(false);
   };
 
   const onError: SubmitErrorHandler<FormData> = (errors) => {

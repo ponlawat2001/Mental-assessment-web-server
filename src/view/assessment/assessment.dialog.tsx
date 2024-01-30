@@ -285,7 +285,8 @@ export default function AssessmentEdit() {
           <DropdownMenu type={type} setType={setType} />
         </div>
         {assessmentSelected?.answer.length ==
-        assessmentSelected?.questionnaire.length ? (
+          assessmentSelected?.questionnaire.length &&
+        assessmentSelected?.answer[0].choices ? (
           <>
             <p>ตัวเลือกทั้งหมดและคะแนน</p>
             {assessmentSelected?.questionnaire.map(
