@@ -91,7 +91,7 @@ function Users() {
               <th className="px-4 py-2">อีเมล</th>
             </tr>
           </thead>
-          <tbody className=" max-h-screen h-fit overflow-auto ">
+          <tbody className=" max-h-screen h-fit overflow-y-auto ">
             {user?.map((u) =>
               avatar
                 ?.filter((value) => u.email == value.email)

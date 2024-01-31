@@ -73,7 +73,7 @@ function Contact() {
     <form onSubmit={handleSubmit(onSubmit, onError)} className="w-full">
       <div className="flex flex-col p-4 w-full gap-4">
         <div className="flex flex-row justify-between ">
-          <p>ข่าวสารและบทความ</p>
+          <p>ที่อยู่สำหรับขอคำปรึกษา</p>
           <p>{moment().format("MMMM Do YYYY")}</p>
         </div>
         <div className=" flex flex-row justify-end gap-4">
