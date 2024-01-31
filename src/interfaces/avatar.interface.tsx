@@ -9,6 +9,7 @@ export interface AvatarResult {
   avatar: string;
   create_at: AteAt;
   update_at: AteAt;
+  favorite: boolean;
 }
 
 export interface AteAt {

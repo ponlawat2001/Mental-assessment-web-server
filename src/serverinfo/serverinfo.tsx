@@ -32,6 +32,7 @@ export const contactupdate = contact + "/update";
 
 const avatar = baseUrl + "/avatars";
 export const avatarfindAll = avatar + "/findAll";
+export const avatarfavorite = avatar + "/favorite";
 
 const users = baseUrl + "/users";
 export const usersfindAll = users + "/findAll";
