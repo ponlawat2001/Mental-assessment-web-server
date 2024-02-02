@@ -16,7 +16,7 @@ function Assessment() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    AssessmentServices.fecth().then((res) => {
+    AssessmentServices.fetch().then((res) => {
       setAssessment(res);
     });
   }, []);

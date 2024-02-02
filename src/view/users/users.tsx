@@ -18,8 +18,8 @@ function Users() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    UsersService.fecth().then((res) => setUser(res));
-    AvatarsService.fecth().then((res) => setAvatar(res));
+    UsersService.fetch().then((res) => setUser(res));
+    AvatarsService.fetch().then((res) => setAvatar(res));
   }, []);
 
   function clickUserSelected(email: string, isHistory: boolean) {
@@ -47,7 +47,7 @@ function Users() {
 
   const favorite = (isfavorite: boolean, id: string) => {
     AvatarsService.favorite({ favorite: isfavorite } as AvatarResult, id).then(
-      () => AvatarsService.fecth().then((res) => setAvatar(res))
+      () => AvatarsService.fetch().then((res) => setAvatar(res))
     );
   };
 

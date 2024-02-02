@@ -13,7 +13,7 @@ export default function HistoryScreen() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    HistoryService.fecth().then((res) => {
+    HistoryService.fetch().then((res) => {
       setHistory(res);
     });
   }, []);

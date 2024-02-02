@@ -1,4 +1,4 @@
-const baseUrl = "https://mental-assessment.cyclic.app";
+const baseUrl = "https://mental-assessment-server.cyclic.app";
 // const baseUrl = "http://localhost:3000";
 
 const auth = baseUrl + "/auth";

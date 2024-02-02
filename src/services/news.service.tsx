@@ -8,18 +8,31 @@ import {
 import { NewsResult } from "@interfaces/news.interface";
 
 export default class NewsService {
-  static async fecth() {
+  static async fetch(): Promise<NewsResult[]> {
+    // Check if data is already in local storage
+    const cachedData = localStorage.getItem("newsData");
+    if (cachedData) {
+      // Use type assertion to cast to NewsResult[]
+      return JSON.parse(cachedData) as NewsResult[];
+    }
+
     const headers = {
       Authorization: "Bearer " + localStorage.getItem("jwt"),
       "Content-Type": "application/json",
     };
+
     try {
       const res = await axios.get(newsfindAll, { headers });
-      return res.data["result"];
+      const data: NewsResult[] = res.data["result"];
+
+      // Cache data in local storage
+      localStorage.setItem("newsData", JSON.stringify(data));
+
+      return data;
     } catch (e) {
       localStorage.removeItem("jwt");
       window.location.reload();
-      return e;
+      throw e; // rethrow the error after handling local storage
     }
   }
 
@@ -32,11 +45,15 @@ export default class NewsService {
       const res = await axios.put(`${newsupdate}/${data.id}`, data, {
         headers,
       });
+
+      // Clear the cached data after updating news
+      localStorage.removeItem("newsData");
+
       return res.data["result"];
     } catch (e) {
       localStorage.removeItem("jwt");
       window.location.reload();
-      return e;
+      throw e; // rethrow the error after handling local storage
     }
   }
 
@@ -49,11 +66,15 @@ export default class NewsService {
       const res = await axios.post(newscreate, data, {
         headers,
       });
+
+      // Clear the cached data after creating news
+      localStorage.removeItem("newsData");
+
       return res.data["result"];
     } catch (e) {
       localStorage.removeItem("jwt");
       window.location.reload();
-      return e;
+      throw e; // rethrow the error after handling local storage
     }
   }
 
@@ -70,11 +91,15 @@ export default class NewsService {
           headers,
         }
       );
+
+      // Clear the cached data after deleting news
+      localStorage.removeItem("newsData");
+
       return res.data["result"];
     } catch (e) {
       localStorage.removeItem("jwt");
       window.location.reload();
-      return e;
+      throw e; // rethrow the error after handling local storage
     }
   }
 }

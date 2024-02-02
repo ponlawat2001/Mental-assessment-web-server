@@ -18,7 +18,7 @@ function Contact() {
   const [isloading, setLoading] = useState(false);
   const [imageUrl, setUploadedImage] = useState<string | null>(null);
   useEffect(() => {
-    ContactServices.fecth().then((res) => setContact(res));
+    ContactServices.fetch().then((res) => setContact(res));
   }, []);
 
   const {

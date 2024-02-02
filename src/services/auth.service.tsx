@@ -52,10 +52,22 @@ export default class AuthServices {
   }
 
   static async findEmail(email: string) {
+    // Check if data is already in local storage
+    const cachedData = localStorage.getItem("adminEmailData");
+    if (cachedData) {
+      // Use type assertion to cast to any
+      return JSON.parse(cachedData) as any;
+    }
+
     return axios
       .get(`${adminfindEmail}/${email}`)
       .then((res: AxiosResponse<any, any>) => {
-        return res.data["result"];
+        const data: any = res.data["result"];
+
+        // Cache data in local storage
+        localStorage.setItem("adminEmailData", JSON.stringify(data));
+
+        return data;
       })
       .catch((e) => {
         return e;
@@ -63,14 +75,27 @@ export default class AuthServices {
   }
 
   static async adminfindAll() {
+    // Check if data is already in local storage
+    const cachedData = localStorage.getItem("adminAllData");
+    if (cachedData) {
+      // Use type assertion to cast to any[]
+      return JSON.parse(cachedData) as any[];
+    }
+
     const headers = {
       Authorization: "Bearer " + localStorage.getItem("jwt"),
       "Content-Type": "application/json",
     };
+
     return axios
       .get(adminfindAll, { headers })
       .then((res) => {
-        return res.data["result"];
+        const data: any[] = res.data["result"];
+
+        // Cache data in local storage
+        localStorage.setItem("adminAllData", JSON.stringify(data));
+
+        return data;
       })
       .catch((e) => {
         localStorage.removeItem("jwt");
@@ -88,6 +113,10 @@ export default class AuthServices {
       const res = await axios.delete(`${admindelete}/${id}`, {
         headers,
       });
+
+      // Clear the cached data after deleting an admin
+      localStorage.removeItem("adminAllData");
+
       return res.data["result"];
     } catch (e) {
       localStorage.removeItem("jwt");
@@ -105,6 +134,10 @@ export default class AuthServices {
       const res = await axios.post(admincreate, data, {
         headers,
       });
+
+      // Clear the cached data after creating an admin
+      localStorage.removeItem("adminAllData");
+
       return res.data["result"];
     } catch (e) {
       localStorage.removeItem("jwt");

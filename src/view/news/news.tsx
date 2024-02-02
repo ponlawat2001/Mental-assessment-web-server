@@ -15,7 +15,7 @@ function News() {
   const [isDeletemode, setDeletemode] = useState(false);
 
   useEffect(() => {
-    NewsService.fecth().then((res) => setNews(res));
+    NewsService.fetch().then((res) => setNews(res));
   }, []);
 
   const openDialog = (element: NewsResult) => {
