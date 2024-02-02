@@ -53,7 +53,7 @@ export default function Dashboard() {
     const countMap = new Map<string, number>();
     let data: string[] = [];
 
-    if (history != null) {
+    if (history != null && assessment != null) {
       assessment!.map((eassessment) => {
         history!.map((e) =>
           e.summary.map((e) =>
@@ -185,29 +185,33 @@ export default function Dashboard() {
             ผลการประเมินครั้งล่าสุด ของผู้ใช้ทุกคน
           </p>
           <div className=" flex flex-col overflow-y-auto rounded-xl gap-4">
-            {history?.map((element) => (
-              <div
-                key={element.id}
-                className=" border-main20 border-4 rounded-xl p-4 "
-              >
-                <p>{timesteampConvertertotime(element.create_at._seconds)}</p>
-                <p>อีเมล: {element.owner}</p>
-                {element.summary.map((esumnary, index) => (
-                  <React.Fragment key={`${element.id}${index}`}>
-                    <p>{esumnary.name}</p>
-                    {esumnary.scorerate.map((escorerate, subIndex) => (
-                      <div
-                        key={`${element.id}${index}${subIndex}`}
-                        className="bg-main30 rounded-2xl p-4 my-2"
-                      >
-                        <p>{escorerate.name}</p>
-                        <p>: {escorerate.rate}</p>
-                      </div>
-                    ))}
-                  </React.Fragment>
-                ))}
-              </div>
-            ))}
+            {history ? (
+              history?.map((element) => (
+                <div
+                  key={element.id}
+                  className=" border-main20 border-4 rounded-xl p-4 "
+                >
+                  <p>{timesteampConvertertotime(element.create_at._seconds)}</p>
+                  <p>อีเมล: {element.owner}</p>
+                  {element.summary.map((esumnary, index) => (
+                    <React.Fragment key={`${element.id}${index}`}>
+                      <p>{esumnary.name}</p>
+                      {esumnary.scorerate.map((escorerate, subIndex) => (
+                        <div
+                          key={`${element.id}${index}${subIndex}`}
+                          className="bg-main30 rounded-2xl p-4 my-2"
+                        >
+                          <p>{escorerate.name}</p>
+                          <p>: {escorerate.rate}</p>
+                        </div>
+                      ))}
+                    </React.Fragment>
+                  ))}
+                </div>
+              ))
+            ) : (
+              <></>
+            )}
           </div>
         </Card>
       </div>
@@ -218,7 +222,7 @@ export default function Dashboard() {
             จำนวนครั้งที่ผู้ใช้ได้ทำการประเมินไปทั้งหมด แยกตามชื่อแบบประเมิน
           </p>
         </div>
-        {history != null && avatar != null ? (
+        {history != null && assessment != null ? (
           <>
             {/* @ts-ignore */}
             <Chart
@@ -238,7 +242,7 @@ export default function Dashboard() {
               จำนวนครั้งที่ผู้ใช้ได้ทำการระบาบความในใจ
             </p>
           </div>
-          {history != null && avatar != null ? (
+          {history != null && vent != null ? (
             <>
               {/* @ts-ignore */}
               <Chart {...chartConfigLine(linechart(false), linechart(true))} />
@@ -248,9 +252,11 @@ export default function Dashboard() {
         <div className="flex w-fit flex-col gap-4 overflow-y-auto">
           {assessment != null && history != null
             ? assessment!.map((e) => (
-                <Card className=" h-fit p-4">
+                <Card className=" h-fit p-4 gap-2">
                   <>
-                    <p>{e.name}</p>
+                    <p className="p-4 border-2 border-main30 rounded-xl">
+                      {e.name}
+                    </p>
                     {e.scorerate.map((escorerate) =>
                       piechart(false, e.name, escorerate.name)?.length == 0 ? (
                         <div className="">
@@ -259,7 +265,6 @@ export default function Dashboard() {
                       ) : (
                         <div className="">
                           <p>{escorerate.name}</p>
-
                           {/* @ts-ignore */}
                           <Chart
                             {...chartConfigPie(
