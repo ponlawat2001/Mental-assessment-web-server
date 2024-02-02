@@ -1,4 +1,4 @@
-const baseUrl = "https://mental-assessment.cyclic.app";
+const baseUrl = "https://mental-assessment-server.cyclic.app";
 // const baseUrl = "http://localhost:3000";
 
 const auth = baseUrl + "/auth";
@@ -32,6 +32,7 @@ export const contactupdate = contact + "/update";
 
 const avatar = baseUrl + "/avatars";
 export const avatarfindAll = avatar + "/findAll";
+export const avatarfavorite = avatar + "/favorite";
 
 const users = baseUrl + "/users";
 export const usersfindAll = users + "/findAll";

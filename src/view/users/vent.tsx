@@ -12,10 +12,10 @@ export default function VentScreen() {
   const [audio, setAudio] = useState<AudioResult[] | null>(null);
 
   useEffect(() => {
-    VentService.fecth().then((res) => {
+    VentService.fetch().then((res) => {
       setVent(res);
     });
-    VentService.audiofecth().then((res) => setAudio(res));
+    VentService.audiofetch().then((res) => setAudio(res));
   }, []);
 
   return (

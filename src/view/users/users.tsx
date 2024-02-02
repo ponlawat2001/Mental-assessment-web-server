@@ -6,6 +6,8 @@ import AvatarsService from "@services/avatar.service";
 import { AvatarResult } from "@interfaces/avatar.interface";
 import { avatarRender } from "@app/helper/helper";
 import { Outlet, useNavigate } from "react-router-dom";
+import favorite_false from "@assets/icons/svg/favorite_false.svg";
+import favorite_true from "@assets/icons/svg/favorite_true.svg";
 
 function Users() {
   let counter = 0;
@@ -16,8 +18,8 @@ function Users() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    UsersService.fecth().then((res) => setUser(res));
-    AvatarsService.fecth().then((res) => setAvatar(res));
+    UsersService.fetch().then((res) => setUser(res));
+    AvatarsService.fetch().then((res) => setAvatar(res));
   }, []);
 
   function clickUserSelected(email: string, isHistory: boolean) {
@@ -41,6 +43,12 @@ function Users() {
     } else {
       navigate("vent");
     }
+  };
+
+  const favorite = (isfavorite: boolean, id: string) => {
+    AvatarsService.favorite({ favorite: isfavorite } as AvatarResult, id).then(
+      () => AvatarsService.fetch().then((res) => setAvatar(res))
+    );
   };
 
   return (
@@ -89,12 +97,15 @@ function Users() {
               <th className="px-4 py-2">โปรไฟล์ผู้ใช้</th>
               <th className="px-4 py-2">ชื่อผู้ใช้</th>
               <th className="px-4 py-2">อีเมล</th>
+              <th className="px-4 py-2">การกระทำ</th>
             </tr>
           </thead>
-          <tbody className=" max-h-screen h-fit overflow-auto ">
+          <tbody className=" max-h-screen h-fit overflow-y-auto ">
             {user?.map((u) =>
               avatar
-                ?.filter((value) => u.email == value.email)
+                ?.filter(
+                  (value) => u.email == value.email && value.favorite == true
+                )
                 .map((element) => (
                   <tr
                     key={element.id}
@@ -106,15 +117,72 @@ function Users() {
                     onClick={() => clickUserSelected(element.email, ishistory)}
                   >
                     <td className="p-4">{(counter = counter + 1)}</td>
-                    <td className=" items-center justify-center p-4">
+                    <td className="p-4 flex items-center justify-center  h-fit">
                       <img
                         width={64}
-                        className="rounded-xl"
+                        className="rounded-xl h-fit"
                         src={avatarRender(element.avatar)}
                       />
                     </td>
                     <td className=" p-4">{u.displayname ?? "ไม่พบอีเมล"}</td>
                     <td className="p-4">{element.email ?? "ไม่พบอีเมล"}</td>
+                    <td
+                      className=" items-center h-full justify-center"
+                      onClick={() => console.log("favorite")}
+                    >
+                      <button
+                        className="w-fit bg-transparent"
+                        onClick={() => favorite(!element.favorite, element.id)}
+                      >
+                        <img
+                          width={28}
+                          src={
+                            element.favorite ? favorite_true : favorite_false
+                          }
+                        />
+                      </button>
+                    </td>
+                  </tr>
+                ))
+            )}
+            {user?.map((u) =>
+              avatar
+                ?.filter(
+                  (value) => u.email == value.email && value.favorite != true
+                )
+                .map((element) => (
+                  <tr
+                    key={element.id}
+                    className={
+                      (isuserSelected == element.email ? " bg-main20 " : "  ") +
+                      (counter % 2 == 0 ? " bg-light_green " : " ") +
+                      " cursor-pointer hover:bg-light_green2 rounded-2xl transition "
+                    }
+                    onClick={() => clickUserSelected(element.email, ishistory)}
+                  >
+                    <td className="p-4">{(counter = counter + 1)}</td>
+                    <td className="p-4 flex items-center justify-center  h-fit">
+                      <img
+                        width={64}
+                        className="rounded-xl h-fit"
+                        src={avatarRender(element.avatar)}
+                      />
+                    </td>
+                    <td className=" p-4">{u.displayname ?? "ไม่พบอีเมล"}</td>
+                    <td className="p-4">{element.email ?? "ไม่พบอีเมล"}</td>
+                    <td className=" items-center h-full justify-center">
+                      <button
+                        className="w-fit bg-transparent"
+                        onClick={() => favorite(!element.favorite, element.id)}
+                      >
+                        <img
+                          width={28}
+                          src={
+                            element.favorite ? favorite_true : favorite_false
+                          }
+                        />
+                      </button>
+                    </td>
                   </tr>
                 ))
             )}
