@@ -97,6 +97,7 @@ function Users() {
               <th className="px-4 py-2">โปรไฟล์ผู้ใช้</th>
               <th className="px-4 py-2">ชื่อผู้ใช้</th>
               <th className="px-4 py-2">อีเมล</th>
+              <th className="px-4 py-2">เบอร์โทร</th>
               <th className="px-4 py-2">การกระทำ</th>
             </tr>
           </thead>
@@ -126,6 +127,8 @@ function Users() {
                     </td>
                     <td className=" p-4">{u.displayname ?? "ไม่พบอีเมล"}</td>
                     <td className="p-4">{element.email ?? "ไม่พบอีเมล"}</td>
+                    <td className=" p-4">{u.phone ?? "ไม่พบเบอร์โทร"}</td>
+
                     <td
                       className=" items-center h-full justify-center"
                       onClick={() => console.log("favorite")}
@@ -168,8 +171,9 @@ function Users() {
                         src={avatarRender(element.avatar)}
                       />
                     </td>
-                    <td className=" p-4">{u.displayname ?? "ไม่พบอีเมล"}</td>
+                    <td className=" p-4">{u.displayname ?? "ไม่พบชื่อ"}</td>
                     <td className="p-4">{element.email ?? "ไม่พบอีเมล"}</td>
+                    <td className=" p-4">{u.phone ?? "ไม่พบเบอร์โทร"}</td>
                     <td className=" items-center h-full justify-center">
                       <button
                         className="w-fit bg-transparent"
