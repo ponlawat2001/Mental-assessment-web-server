@@ -52,20 +52,10 @@ export default class AuthServices {
   }
 
   static async findEmail(email: string) {
-    // Check if data is already in local storage
-    const cachedData = localStorage.getItem("adminEmailData");
-    if (cachedData) {
-      // Use type assertion to cast to any
-      return JSON.parse(cachedData) as any;
-    }
-
     return axios
       .get(`${adminfindEmail}/${email}`)
       .then((res: AxiosResponse<any, any>) => {
         const data: any = res.data["result"];
-
-        // Cache data in local storage
-        localStorage.setItem("adminEmailData", JSON.stringify(data));
 
         return data;
       })
